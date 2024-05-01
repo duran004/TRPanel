@@ -2,6 +2,7 @@
 try {
     //clear cache
     ini_set('realpath_cache_size', '0');
+    clearstatcache();
     //check for updates
     $my_version = file_get_contents("version.txt");
     $latest_version = file_get_contents("https://raw.githubusercontent.com/duran004/TRPanel/main/version.txt");
