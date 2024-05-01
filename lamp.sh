@@ -49,6 +49,9 @@ echo "### Apache ve MySQL başlatıldı ###"
 
 # gitden projey çek /var/www/html dizinine
 cd /var/www/html
+echo "### Proje çekiliyor ###"
+#varsa sil
+rm -rf TRPanel
 git clone https://github.com/duran004/TRPanel.git
 echo "### Proje çekildi ###"
 
