@@ -3,6 +3,7 @@
 # PHP, Apache, MySQL ve Git'i yüklemek için gerekli paket isimleri
 packages="php apache2 mysql-server git"
 
+
 # Root kullanıcı olup olmadığını kontrol et
 if [ "$(id -u)" != "0" ]; then
   echo "Bu komut dosyasını çalıştırmak için root yetkilerine ihtiyacınız var."
@@ -12,8 +13,12 @@ echo "### LAMP Kurulumu ###"
 # Paketleri güncelle
 apt update
 
-# Paketleri yükle
-apt install -y $packages
+# Paketler yüklü değilse yükle
+for package in $packages; do
+  if ! dpkg -l | grep -q $package; then
+    apt install -y $package
+  fi
+done
 echo "### LAMP Kurulumu Bitti ###"
 
 # MySQL için root parolası belirle
