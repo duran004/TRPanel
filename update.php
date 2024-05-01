@@ -5,7 +5,10 @@ try {
     if ($my_version != $latest_version) {
         throw new Exception("New version available. Updating...");
     }
-    echo "<x-alert>You are up to date!</x-alert>";
+    echo "<x-alert>You are up to date!
+    <br>Current version: $my_version
+    <br>Latest version: $latest_version
+    </x-alert>";
 } catch (Exception $e) {
     echo $e->getMessage() . "<br>";
     $output = [];
