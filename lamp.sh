@@ -21,17 +21,6 @@ for package in $packages; do
 done
 echo "### LAMP Kurulumu Bitti ###"
 
-# MySQL için root parolası belirle
-echo "MySQL root parolası belirleyin:"
-read -s mysql_root_password
-echo "MySQL root parolasını tekrar girin:"
-read -s mysql_root_password_repeat
-
-# Parolaların eşleşip eşleşmediğini kontrol et
-if [ "$mysql_root_password" != "$mysql_root_password_repeat" ]; then
-  echo "Parolalar eşleşmiyor. Lütfen tekrar deneyin."
-  exit 1
-fi
 
 # MySQL root parolasını belirle
 if [ ! -f /var/lib/mysql/ibdata1 ]; then
