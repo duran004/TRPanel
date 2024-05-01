@@ -56,6 +56,7 @@ echo "### Proje çekiliyor ###"
 #varsa sil
 rm -rf TRPanel
 git clone https://github.com/duran004/TRPanel.git
+git config --global --add safe.directory /var/www/html/TRPanel
 echo "### Proje çekildi ###"
 # Proje dizinine yetki ver
 chown -R www-data:www-data TRPanel
