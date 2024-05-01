@@ -16,6 +16,7 @@ try {
     echo $e->getMessage() . "<br>";
     $output = [];
     $return_var = 0;
+    exec('git reset --hard 2>&1', $output, $return_var);
     exec('git pull origin main 2>&1', $output, $return_var);
     if ($return_var !== 0) {
         echo "Git update failed. Output: " . implode("\n", $output);
