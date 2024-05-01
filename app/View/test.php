@@ -1,0 +1,1 @@
+test view {{ $name }} {{ $age }}

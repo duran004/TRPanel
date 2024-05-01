@@ -8,6 +8,10 @@ class TestController
 {
     public function index()
     {
-        return View::view('test');
+        $data = [
+            'name' => 'Duran Can Yılmaz',
+            'age' => 30
+        ];
+        return View::view('test', $data);
     }
 }
