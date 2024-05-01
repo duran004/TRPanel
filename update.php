@@ -8,6 +8,8 @@ try {
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, "https://raw.githubusercontent.com/duran004/TRPanel/main/version.txt");
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_FRESH_CONNECT, true);
+    curl_setopt($ch, CURLOPT_FORBID_REUSE, true);
     $latest_version = curl_exec($ch);
     if ($my_version != $latest_version) {
         throw new Exception("New version available. Updating...");
