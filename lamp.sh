@@ -33,9 +33,23 @@ if [ "$mysql_root_password" != "$mysql_root_password_repeat" ]; then
   exit 1
 fi
 
-# MySQL root parolasını ayarla
-mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '$mysql_root_password';"
+# MySQL root parolasını belirle
+if [ ! -f /var/lib/mysql/ibdata1 ]; then
+  echo "MySQL root parolası belirleyin:"
+  read -s mysql_root_password
+  echo "MySQL root parolasını tekrar girin:"
+  read -s mysql_root_password_repeat
 
+  # Parolaların eşleşip eşleşmediğini kontrol et
+  if [ "$mysql_root_password" != "$mysql_root_password_repeat" ]; then
+    echo "Parolalar eşleşmiyor. Lütfen tekrar deneyin."
+    exit 1
+  fi
+
+  # MySQL root parolasını ayarla
+  echo "mysql-server mysql-server/root_password password $mysql_root_password" | debconf-set-selections
+  echo "mysql-server mysql-server/root_password_again password $mysql_root_password" | debconf-set-selections
+fi
 # PHP'nin MySQL eklentisini yükle
 apt install -y php-mysql php-curl php-gd php-intl php-json php-mbstring php-xml php-zip
 
@@ -54,5 +68,10 @@ echo "### Proje çekiliyor ###"
 rm -rf TRPanel
 git clone https://github.com/duran004/TRPanel.git
 echo "### Proje çekildi ###"
+# Proje dizinine yetki ver
+chown -R www-data:www-data TRPanel
+chmod -R 755 TRPanel
+echo "### Yetki verildi ###"
+
 
 echo "Kurulum tamamlandı!"
