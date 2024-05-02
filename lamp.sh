@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # PHP, Apache, MySQL ve Git'i yüklemek için gerekli paket isimleri
-packages="php apache2 mysql-server git curl"
+packages="php apache2 mysql-server git"
 
 # Renk kodları
 RED='\033[0;31m'
@@ -25,6 +25,11 @@ for package in $packages; do
     apt install -y $package
   fi
 done
+#curl yükle
+sudo apt-get install curl
+#path ekle
+export PATH=$PATH:/usr/local/bin
+# curl yüklü mü kontrol et
 echo -e "${YELLOW}Checking if curl is installed...${NC}"
 which curl
 if [ $? -eq 0 ]; then
@@ -33,6 +38,7 @@ else
   echo -e "${RED}curl is not installed.${NC}"
   exit 1
 fi
+
 echo -e "${GREEN}### LAMP Kurulumu Bitti ###${NC}"
 
 # MySQL root parolasını belirle
