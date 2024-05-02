@@ -25,6 +25,14 @@ for package in $packages; do
     apt install -y $package
   fi
 done
+echo -e "${YELLOW}Checking if curl is installed...${NC}"
+which curl
+if [ $? -eq 0 ]; then
+  echo -e "${GREEN}curl is installed.${NC}"
+else
+  echo -e "${RED}curl is not installed.${NC}"
+  exit 1
+fi
 echo -e "${GREEN}### LAMP Kurulumu Bitti ###${NC}"
 
 # MySQL root parolasını belirle
