@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # PHP, Apache, MySQL ve Git'i yüklemek için gerekli paket isimleri
-packages="php apache2 mysql-server git"
+packages="php apache2 mysql-server git curl"
 
 # Renk kodları
 RED='\033[0;31m'
