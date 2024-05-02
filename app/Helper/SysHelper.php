@@ -29,12 +29,24 @@ class SysHelper
             echo $e->getMessage() . "<br>";
             $output = [];
             $return_var = 0;
+            if (file_exists("composer.lock")) {
+                unlink("composer.lock");
+            }
             exec('git reset --hard 2>&1', $output, $return_var);
             exec('git pull origin main 2>&1', $output, $return_var);
             if ($return_var !== 0) {
                 echo "Git update failed. Output: " . implode("\n", $output);
             } else {
                 echo "Git update successful. Output: " . implode("\n", $output);
+                //update composer
+                exec('composer update 2>&1', $output, $return_var);
+                if ($return_var !== 0) {
+                    echo "Composer update failed. Output: " . implode("\n", $output);
+                } else {
+                    echo "Composer update successful. Output: " . implode("\n", $output);
+                    //dump autoload
+                    exec('composer dump-autoload 2>&1', $output, $return_var);
+                }
             }
             header("Refresh:5");
             exit;
