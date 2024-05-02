@@ -25,7 +25,9 @@ for package in $packages; do
     apt install -y $package
   fi
 done
+
 #curl yükle
+echo -e "${YELLOW}### Curl yükleniyor ###${NC}"
 sudo apt-get install curl
 #path ekle
 export PATH=$PATH:/usr/local/bin
