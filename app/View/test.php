@@ -1,1 +1,2 @@
-test view {{ $name }} {{ $age }}
+<br />
+blade test view {{ $name }} {{ $age }} composer updated
