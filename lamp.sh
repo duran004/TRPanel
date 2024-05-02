@@ -60,8 +60,14 @@ echo -e "${GREEN}### Apache ve MySQL başlatıldı ###${NC}"
 
 echo -e "${YELLOW}### Composer Kurulumu ###${NC}"
 # Composer'ı indir
-curl -sS https://getcomposer.org/installer | php
-mv composer.phar /usr/local/bin/composer
+curl -sS https://getcomposer.org/installer -o composer-setup.php
+# Composer'ı yükle
+php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+# Composer'ı temizle
+php -r "unlink('composer-setup.php');"
+# Composer'ı PATH'e ekle
+export PATH=$PATH:/usr/local/bin
+
 echo -e "${GREEN}### Composer Kurulumu Bitti ###${NC}"
 
 # gitden projey çek /var/www/html dizinine
