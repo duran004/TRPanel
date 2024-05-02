@@ -3,11 +3,7 @@ error_reporting(E_ALL);
 require_once 'vendor/autoload.php';
 
 use App\Helper\SysHelper;
-use App\Controller\TestController;
+use App\Controller\AppController;
 
 SysHelper::update();
-$test = new TestController();
-$test->index();
-
-
-echo phpinfo();
+$app = new AppController();

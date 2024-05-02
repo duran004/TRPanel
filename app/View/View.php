@@ -7,16 +7,26 @@ class View
     public static function view($view, $data = [])
     {
         extract($data);
-        $view = file_get_contents(__DIR__ . "/$view.php");
-        $view = str_replace("{{", "<?=", $view);
-        $view = str_replace("}}", "?>", $view);
+        $viewPath = __DIR__ . "/$view.php";
 
-$view = str_replace("@foreach", "<?php foreach", $view);
-        $view = str_replace("@endforeach", "?>", $view);
-$view = str_replace("@if", "<?php if", $view);
-        $view = str_replace("@endif", "?>", $view);
-$view = str_replace("@else", "<?php else: ?>", $view);
-$view = str_replace("@elseif", "<?php elseif", $view);
-        return eval('?>' . $view);
+        if (file_exists($viewPath)) {
+            ob_start();
+            include $viewPath;
+            $output = ob_get_clean();
+
+            // Replace special template tags
+            $output = str_replace("{{", "<?=", $output);
+            $output = str_replace("}}", "?>", $output);
+$output = str_replace("@foreach", "<?php foreach", $output);
+            $output = str_replace("):", "): ?>", $output);
+$output = str_replace("@endforeach", "<?php endforeach; ?>", $output);
+$output = str_replace("@if", "<?php if", $output);
+            $output = str_replace("@endif", "endif; ?>", $output);
+$output = str_replace("@else", "<?php else: ?>", $output);
+$output = str_replace("@elseif", "<?php elseif", $output);
+            return eval("?>$output");
+} else {
+throw new \Exception("View file '$view' not found");
+}
 }
 }
