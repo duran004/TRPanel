@@ -8,7 +8,6 @@ use App\Controller\FileController;
 class AppController
 {
     private FileController $fileController;
-    public string $basePath = __DIR__ . '/../../';
     public function __construct()
     {
         $this->fileController = new FileController();
