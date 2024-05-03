@@ -7,7 +7,8 @@ use App\Controller\FileController;
 
 class AppController
 {
-    public $fileController;
+    private FileController $fileController;
+    public string $basePath = __DIR__ . '/../../';
     public function __construct()
     {
         $this->fileController = new FileController();
@@ -17,9 +18,12 @@ class AppController
     public function index()
     {
         $data = [
+            'title' => 'File Manager',
             'files' => $this->fileController->files(),
             'basePath' => $this->fileController->basePath,
         ];
+        echo View::view('header', $data);
         echo View::view('files', $data);
+        echo View::view('footer', $data);
     }
 }

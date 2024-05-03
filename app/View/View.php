@@ -4,6 +4,7 @@ namespace App\View;
 
 class View
 {
+
     public static function view($view, $data = [])
     {
         extract($data);
@@ -26,7 +27,8 @@ class View
             $output = str_replace("@else", "<?php else: ?>", $output);
             $output = str_replace("@php", "<?php", $output);
             $output = str_replace("@endphp", "?>", $output);
-            // return $output;
+            $output = preg_replace('/@style\(\'(.*)\'\)/', '<link rel="stylesheet" href="src/css/$1">', $output);
+            //return $output;
             return eval("?>$output");
         } else {
             throw new \Exception("View file '$view' not found");

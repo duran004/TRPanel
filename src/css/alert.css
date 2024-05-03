@@ -1,0 +1,35 @@
+x-alert {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    opacity: 0;
+    z-index: 1000;
+    padding: 10px;
+    background-color: #2e2e2e83;
+    color: white;
+    text-align: center;
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    animation: slidein 0.5s, slideout 9s 0.5s;
+}
+
+@keyframes slidein {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideout {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
