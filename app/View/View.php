@@ -24,7 +24,9 @@ $output = str_replace("@if", "<?php if", $output);
             $output = str_replace("}}", "?>", $output);
 $output = str_replace("@endif", "<?php endif; ?>", $output);
 $output = str_replace("@else", "<?php else: ?>", $output);
-
+$output = str_replace("@php", "<?php", $output);
+            $output = str_replace("@endphp", "?>", $output);
+// return $output;
 return eval("?>$output");
 } else {
 throw new \Exception("View file '$view' not found");

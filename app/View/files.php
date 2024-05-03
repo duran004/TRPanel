@@ -16,19 +16,22 @@ files view
             </tr>
         </thead>
         @foreach ($files as $file):
+        @php
+        $filepath= $basePath . $file;
+        @endphp
         <tr>
             <td>
-                @if (is_dir($file)):
+                @if (is_dir($filepath)):
                 <img src="https://img.icons8.com/ios/50/000000/folder-invoices.png" />
                 @else
                 <img src="https://img.icons8.com/ios/50/000000/file.png" />
                 @endif
             </td>
-            <td>{{ $file }}</td>
-            <td>{{ @filesize($file) }}</td>
-            <td>{{ @date('Y-m-d H:i:s', filemtime($file)) }}</td>
-            <td>{{ @filetype($file)=='dir' ? 'Directory' : 'File' }}</td>
-            <td>{{ @substr(sprintf('%o', fileperms($file)), -4) }}</td>
+            <td title="{{ $filepath }}">{{ $file }}</td>
+            <td>{{ @filesize($filepath) }}</td>
+            <td>{{ @date('Y-m-d H:i:s', filemtime($filepath)) }}</td>
+            <td>{{ @is_dir($filepath) ? 'Directory' : 'File' }}</td>
+            <td>{{ @substr(sprintf('%o', fileperms($filepath)), -4) }}</td>
             @endforeach
     </table>
 </x-files>

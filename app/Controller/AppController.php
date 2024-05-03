@@ -17,7 +17,8 @@ class AppController
     public function index()
     {
         $data = [
-            'files' => $this->fileController->files()
+            'files' => $this->fileController->files(),
+            'basePath' => $this->fileController->basePath,
         ];
         echo View::view('files', $data);
     }
