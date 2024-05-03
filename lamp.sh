@@ -72,7 +72,9 @@ echo -e "${GREEN}### PHP MySQL eklentisi yüklendi ###${NC}"
 # </Directory>
 
 # Apache'nin ayarlarını değiştir
+echo -e "${YELLOW}### Apache ayarları değiştiriliyor ###${NC}"
 sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf 
+echo -e "${GREEN}### Apache ayarları değiştirildi ###${NC}"
 
 
 # Apache'nin mod_rewrite modülünü etkinleştir
