@@ -83,6 +83,8 @@ a2enmod rewrite
 # Servisleri başlat
 service apache2 start
 service mysql start
+# Apache'yi yeniden başlat
+sudo systemctl restart apache2
 
 echo -e "${GREEN}### Apache ve MySQL başlatıldı ###${NC}"
 
