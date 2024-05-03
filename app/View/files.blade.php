@@ -42,7 +42,6 @@
 
 
 <x-files>
-    <x-alert>File list:</x-alert>
     <table class="table table-striped table-sm table-hover">
         <thead>
             <tr>
