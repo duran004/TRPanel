@@ -12,10 +12,8 @@ class AppController
     public function __construct()
     {
         $this->fileController = new FileController();
-
-        $this->index();
     }
-    public function index()
+    public function file_manager()
     {
         $data = [
             'title' => 'File Manager',
