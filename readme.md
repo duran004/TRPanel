@@ -9,4 +9,4 @@ En azından dosya yöneticisi bölümü tamamlanır.
 
 
 ### BETA VERSİONDUR!
-.![önizleme](src/img/github.png)!
+![önizleme](src/img/github.png)
