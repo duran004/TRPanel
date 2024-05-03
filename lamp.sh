@@ -109,6 +109,7 @@ echo -e "${GREEN}### Proje çekildi ###${NC}"
 # Proje dizinine yetki ver
 chown -R www-data:www-data TRPanel
 chmod -R 755 TRPanel
+sudo chmod www-data:www-data TRPanel/.htaccess
 echo -e "${GREEN}### Yetki verildi ###${NC}"
 
 echo -e "${YELLOW}### Composer ile gerekli paketler yükleniyor ###${NC}"
