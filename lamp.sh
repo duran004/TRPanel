@@ -65,6 +65,16 @@ echo -e "${YELLOW}### PHP MySQL eklentisi yükleniyor ###${NC}"
 apt install -y php-mysql php-curl php-gd php-intl php-json php-mbstring php-xml php-zip
 echo -e "${GREEN}### PHP MySQL eklentisi yüklendi ###${NC}"
 
+# <Directory /var/www/>
+#     Options Indexes FollowSymLinks
+#     AllowOverride All
+#     Require all granted
+# </Directory>
+
+# Apache'nin ayarlarını değiştir
+sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf 
+
+
 # Apache'nin mod_rewrite modülünü etkinleştir
 a2enmod rewrite
 
