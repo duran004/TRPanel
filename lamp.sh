@@ -9,8 +9,9 @@ NC='\033[0m' # No Color
 
 # Git yoksa yükle
 if ! dpkg -l | grep -q git; then
-  apt update
-  apt install -y git
+  echo -e "${GREEN}git yüklü değil, yükleniyor...${NC}"
+  sudo apt update
+  sudo apt install -y git
   echo -e "${GREEN}git yüklendi.${NC}"
 else
   echo -e "${GREEN}git zaten yüklü.${NC}"
@@ -18,16 +19,24 @@ fi
 
 # Dizin yoksa oluştur
 if [ ! -d "/var/www/html" ]; then
-  mkdir -p /var/www/html
+  echo -e "${GREEN}/var/www/html dizini oluşturuluyor...${NC}"
+  sudo mkdir -p /var/www/html
 fi
 cd /var/www/html
 
 # Proje dizini varsa sil
-rm -rf TRPanel
+echo -e "${GREEN}TRPanel dizini siliniyor...${NC}"
+sudo rm -rf TRPanel
 
 # Git reposunu klonla
+echo -e "${GREEN}Git reposu klonlanıyor...${NC}"
 git clone https://github.com/duran004/TRPanel.git
 cd TRPanel
 
 # Alt scripti çalıştır
-source bashes/init.sh
+if [ -f "bashes/init.sh" ]; then
+  echo -e "${GREEN}bashes/init.sh çalıştırılıyor...${NC}"
+  source bashes/init.sh
+else
+  echo -e "${RED}bashes/init.sh dosyası bulunamadı.${NC}"
+fi
