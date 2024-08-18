@@ -6,6 +6,7 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 RED='\033[0;31m'
 NC='\033[0m' # No Color
+project_folder="/var/www/html/TRPanel/bashes"
 
 
 
@@ -41,8 +42,8 @@ echo -e "${GREEN}Git reposu klonlanıyor...${NC}"
 git clone https://github.com/duran004/TRPanel.git
 cd TRPanel
 
-source /bashes/init.sh
-source /bashes/packages.sh
-source /bashes/apache_settings.sh
-source /bashes/mysql_settings.sh
-source /bashes/project_settings.sh
+source "$project_folder/init.sh"
+source "$project_folder/packages.sh"
+source "$project_folder/apache_settings.sh"
+source "$project_folder/mysql_settings.sh"
+source "$project_folder/project_settings.sh"
