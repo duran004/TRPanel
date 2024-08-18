@@ -45,4 +45,4 @@ fi
 
 
 
-source /bashes/packages.sh
+source packages.sh
