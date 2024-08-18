@@ -22,7 +22,7 @@ echo -e "${YELLOW}Önceden yüklenmiş paketleri kaldırmak ister misiniz? (yes/
 read answer
 
 if [ "$answer" == "yes" ]; then
-  echo -e "${YELLOW}### Daha önce yüklenmiş olan paketler kaldırılıyor ###${NC}"
+  echo -e "${RED}### Daha önce yüklenmiş olan paketler kaldırılıyor ###"
   
   # Önceki kurulumları kaldır
   apt remove --purge -y $packages
@@ -36,8 +36,9 @@ if [ "$answer" == "yes" ]; then
   # Apache ve PHP konfigürasyon dosyalarını kaldır (isteğe bağlı, tüm ayarları siler)
   rm -rf /etc/apache2
   rm -rf /etc/php
-  
+
   echo -e "${GREEN}### Paketler kaldırıldı, sistem temizlendi ###${NC}"
+  
 else
   echo -e "${YELLOW}### Paketler kaldırılmadı, mevcut kurulum devam ediyor ###${NC}"
 fi
