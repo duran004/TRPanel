@@ -1,6 +1,8 @@
 #!/bin/bash
 echo -e "${GREEN}### packages.sh ###${NC}"
 echo -e "${YELLOW}### git ve openssh kontrol ediliyor ###${NC}"
+# Paketleri güncelle
+sudo apt update
 
 check_packages="git openssh-client"
 for check_package in $check_packages; do
@@ -12,8 +14,7 @@ for check_package in $check_packages; do
 done
 
 echo -e "${YELLOW}### LAMP Kurulumu ###${NC}"
-# Paketleri güncelle
-sudo apt update
+
 
 # Paketler yüklü değilse yükle
 for package in $packages; do
