@@ -20,6 +20,8 @@ cd /var/www/html
 echo -e "${YELLOW}### Proje çekiliyor ###${NC}"
 #varsa sil
 rm -rf TRPanel
+#gitden çek
+git clone https://github.com/duran004/TRPanel.git
 
 git config --global --add safe.directory /var/www/html/TRPanel
 echo -e "${GREEN}### Proje çekildi ###${NC}"
