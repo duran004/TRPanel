@@ -43,9 +43,6 @@ else
   echo -e "${YELLOW}### Paketler kaldırılmadı, mevcut kurulum devam ediyor ###${NC}"
 fi
 
-# Dizin yoksa oluştur apache bazen oluşturmuyor
-if [ ! -d "/var/www/html" ]; then
-  mkdir -p /var/www/html
-fi
+
 
 source /bashes/packages.sh
