@@ -18,7 +18,7 @@ fi
 
 
 # Kullanıcıya paketlerin kaldırılmasını isteyip istemediğini sor
-echo -e "${YELLOW}Önceden yüklenmiş paketleri kaldırmak ister misiniz? (yes/no)${NC}"
+echo -e "${RED}Önceden yüklenmiş paketleri kaldırmak ister misiniz? (yes/no)${NC}"
 read answer
 
 if [ "$answer" == "yes" ]; then
