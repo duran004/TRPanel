@@ -9,6 +9,7 @@ rm -rf TRPanel
 # Git yoksa yükle
 if ! dpkg -l | grep -q git; then
   apt install -y git
+  echo -e "${GREEN}git yüklendi.${NC}"
 fi
 git clone https://github.com/duran004/TRPanel.git
 cd TRPanel
