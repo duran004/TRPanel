@@ -41,8 +41,16 @@ fi
 
 echo -e "${GREEN}### LAMP Kurulumu Bitti ###${NC}"
 
-# PHP MySQL eklentisi yükle
-echo -e "${YELLOW}###  PHP MySQL eklentisi yükleniyor ###${NC}"
-apt install -y php-mysql php-curl php-gd php-intl php-json php-mbstring php-xml php-zip php-phar php-iconv php-mbstring
+# PHP paketlerini yükle
+echo -e "${YELLOW}###  PHP paketleri yükleniyor ###${NC}"
+php_packages="php-mysql php-curl php-gd php-intl php-json php-mbstring php-xml php-zip php-phar php-iconv php-mbstring"
+for php_package in $php_packages; do
+  sudo apt install -y $php_package
+  if ! dpkg -l | grep -q $php_package; then
+    echo -e "${RED}$php_package yüklenemedi.${NC}"
+    exit 1
+  fi
+  echo -e "${GREEN}$php_package yüklendi.${NC}"
+done
 echo -e "${GREEN}### PHP eklentileri yüklendi ###${NC}"
 
