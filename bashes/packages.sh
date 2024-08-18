@@ -18,10 +18,10 @@ echo -e "${YELLOW}### LAMP Kurulumu ###${NC}"
 
 # Paketler yüklü değilse yükle
 for package in $packages; do
-  if ! dpkg -l | grep -q $package; then
+#   if ! dpkg -l | grep -q $package; then
     sudo apt install -y $package
     echo -e "${GREEN}$package yüklendi.${NC}"
-  fi
+#   fi
 done
 
 #curl yükle
