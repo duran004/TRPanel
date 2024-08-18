@@ -45,4 +45,3 @@ fi
 
 
 
-source packages.sh

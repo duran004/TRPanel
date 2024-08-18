@@ -9,6 +9,7 @@ NC='\033[0m' # No Color
 
 
 
+
 # Git'in kurulumunu kontrol et
 if ! command -v git &> /dev/null; then
     echo -e "${YELLOW}### Git yükleniyor ###${NC}"
@@ -41,3 +42,7 @@ git clone https://github.com/duran004/TRPanel.git
 cd TRPanel
 
 source /bashes/init.sh
+source /bashes/packages.sh
+source /bashes/apache_settings.sh
+source /bashes/mysql_settings.sh
+source /bashes/project_settings.sh

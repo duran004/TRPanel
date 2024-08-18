@@ -44,4 +44,3 @@ echo -e "${YELLOW}###  PHP MySQL eklentisi yükleniyor ###${NC}"
 apt install -y php-mysql php-curl php-gd php-intl php-json php-mbstring php-xml php-zip
 echo -e "${GREEN}### PHP eklentileri yüklendi ###${NC}"
 
-source /bashes/apache_settings.sh

@@ -16,5 +16,3 @@ service mysql start
 sudo systemctl restart apache2
 
 echo -e "${GREEN}### Apache ve MySQL başlatıldı ###${NC}"
-
-source /bashes/mysql_settings.sh

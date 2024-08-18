@@ -18,4 +18,3 @@ if [ ! -f /var/lib/mysql/ibdata1 ]; then
   echo "mysql-server mysql-server/root_password_again password $mysql_root_password" | debconf-set-selections
 fi
 
-source /bashes/project_settings.sh
