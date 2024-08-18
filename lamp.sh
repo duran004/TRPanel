@@ -15,6 +15,36 @@ if [ "$(id -u)" != "0" ]; then
   echo -e "${RED}Bu komut dosyasını çalıştırmak için root yetkilerine ihtiyacınız var.${NC}"
   exit 1
 fi
+
+
+# Kullanıcıya paketlerin kaldırılmasını isteyip istemediğini sor
+echo -e "${YELLOW}Önceden yüklenmiş paketleri kaldırmak ister misiniz? (yes/no)${NC}"
+read answer
+
+if [ "$answer" == "yes" ]; then
+  echo -e "${YELLOW}### Daha önce yüklenmiş olan paketler kaldırılıyor ###${NC}"
+  
+  # Önceki kurulumları kaldır
+  apt remove --purge -y $packages
+  apt autoremove -y
+  apt autoclean
+  
+  # MySQL veri dizinini kaldır (isteğe bağlı, tüm verileri siler)
+  rm -rf /var/lib/mysql
+  rm -rf /etc/mysql
+  
+  # Apache ve PHP konfigürasyon dosyalarını kaldır (isteğe bağlı, tüm ayarları siler)
+  rm -rf /etc/apache2
+  rm -rf /etc/php
+  
+  echo -e "${GREEN}### Paketler kaldırıldı, sistem temizlendi ###${NC}"
+else
+  echo -e "${YELLOW}### Paketler kaldırılmadı, mevcut kurulum devam ediyor ###${NC}"
+fi
+
+
+
+
 echo -e "${YELLOW}### LAMP Kurulumu ###${NC}"
 # Paketleri güncelle
 apt update
