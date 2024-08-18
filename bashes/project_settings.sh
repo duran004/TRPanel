@@ -1,5 +1,5 @@
 #!/bin/bash
-
+echo -e "${GREEN}### project_settings.sh ###${NC}"
 
 
 

@@ -9,7 +9,7 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
-
+echo -e "${GREEN}### init.sh ###${NC}"
 # Root kullanıcı olup olmadığını kontrol et
 if [ "$(id -u)" != "0" ]; then
   echo -e "${RED}Bu komut dosyasını çalıştırmak için root yetkilerine ihtiyacınız var.${NC}"

@@ -1,5 +1,5 @@
 #!/bin/bash
-
+echo -e "${GREEN}### mysql_settings.sh ###${NC}"
 # MySQL root parolasını belirle
 if [ ! -f /var/lib/mysql/ibdata1 ]; then
   echo -e "${BLUE}MySQL root parolası belirleyin:${NC}"

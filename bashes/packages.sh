@@ -1,5 +1,5 @@
 #!/bin/bash
-
+echo -e "${GREEN}### packages.sh ###${NC}"
 echo -e "${YELLOW}### git ve openssh kontrol ediliyor ###${NC}"
 
 check_packages="git openssh-client"

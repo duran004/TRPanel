@@ -1,5 +1,5 @@
 #!/bin/bash
-
+echo -e "${GREEN}### apache_settings.sh ###${NC}"
 # Apache'nin ayarlarını değiştir
 echo -e "${YELLOW}### Apache ayarları değiştiriliyor ###${NC}"
 sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf 
