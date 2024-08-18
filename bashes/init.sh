@@ -17,32 +17,32 @@ if [ "$(id -u)" != "0" ]; then
 fi
 
 
-# Kullanıcıya paketlerin kaldırılmasını isteyip istemediğini sor
-echo -e "${RED}Önceden yüklenmiş paketleri kaldırmak ister misiniz? (yes/no)${NC}"
-read answer
+# # Kullanıcıya paketlerin kaldırılmasını isteyip istemediğini sor
+# echo -e "${RED}Önceden yüklenmiş paketleri kaldırmak ister misiniz? (yes/no)${NC}"
+# read answer
 
-if [ "$answer" == "yes" ]; then
-  echo -e "${RED}### Daha önce yüklenmiş olan paketler kaldırılıyor ###"
+# if [ "$answer" == "yes" ]; then
+#   echo -e "${RED}### Daha önce yüklenmiş olan paketler kaldırılıyor ###"
   
-  # Önceki kurulumları kaldır 
-  sudo apt purge --force-yes $packages
-  sudo apt remove --purge -y $packages
-  sudo apt autoremove -y
-  sudo apt autoclean
+#   # Önceki kurulumları kaldır 
+#   sudo apt purge --force-yes $packages
+#   sudo apt remove --purge -y $packages
+#   sudo apt autoremove -y
+#   sudo apt autoclean
   
-  # MySQL veri dizinini kaldır (isteğe bağlı, tüm verileri siler)
-  rm -rf /var/lib/mysql
-  rm -rf /etc/mysql
+#   # MySQL veri dizinini kaldır (isteğe bağlı, tüm verileri siler)
+#   rm -rf /var/lib/mysql
+#   rm -rf /etc/mysql
   
-  # Apache ve PHP konfigürasyon dosyalarını kaldır (isteğe bağlı, tüm ayarları siler)
-  rm -rf /etc/apache2
-  rm -rf /etc/php
+#   # Apache ve PHP konfigürasyon dosyalarını kaldır (isteğe bağlı, tüm ayarları siler)
+#   rm -rf /etc/apache2
+#   rm -rf /etc/php
 
-  echo -e "${GREEN}### Paketler kaldırıldı, sistem temizlendi ###${NC}"
+#   echo -e "${GREEN}### Paketler kaldırıldı, sistem temizlendi ###${NC}"
   
-else
-  echo -e "${YELLOW}### Paketler kaldırılmadı, mevcut kurulum devam ediyor ###${NC}"
-fi
+# else
+#   echo -e "${YELLOW}### Paketler kaldırılmadı, mevcut kurulum devam ediyor ###${NC}"
+# fi
 
 
 

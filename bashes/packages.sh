@@ -43,6 +43,6 @@ echo -e "${GREEN}### LAMP Kurulumu Bitti ###${NC}"
 
 # PHP MySQL eklentisi yükle
 echo -e "${YELLOW}###  PHP MySQL eklentisi yükleniyor ###${NC}"
-apt install -y php-mysql php-curl php-gd php-intl php-json php-mbstring php-xml php-zip
+apt install -y php-mysql php-curl php-gd php-intl php-json php-mbstring php-xml php-zip php-phar php-iconv php-mbstring
 echo -e "${GREEN}### PHP eklentileri yüklendi ###${NC}"
 
