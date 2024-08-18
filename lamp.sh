@@ -1,2 +1,2 @@
 #!/bin/bash
-source /bashes/init.sh
+source bashes/init.sh
