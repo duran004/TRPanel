@@ -43,7 +43,7 @@ echo -e "${GREEN}### LAMP Kurulumu Bitti ###${NC}"
 
 # PHP paketlerini yükle
 echo -e "${YELLOW}###  PHP paketleri yükleniyor ###${NC}"
-php_packages="php-mysql php-curl php-gd php-intl php-json php-mbstring php-xml php-zip php8.3-common php-iconv php-mbstring"
+php_packages="php-mysql php-curl php-gd php-intl php-json php-mbstring php-xml php-zip php8.3-common"
 for php_package in $php_packages; do
   sudo apt install -y $php_package
   if ! dpkg -l | grep -q $php_package; then
