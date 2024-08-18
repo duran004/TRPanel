@@ -40,10 +40,4 @@ echo -e "${GREEN}Git reposu klonlanıyor...${NC}"
 git clone https://github.com/duran004/TRPanel.git
 cd TRPanel
 
-# Alt scripti çalıştır
-if [ -f "bashes/init.sh" ]; then
-  echo -e "${GREEN}bashes/init.sh çalıştırılıyor...${NC}"
-  source bashes/init.sh
-else
-  echo -e "${RED}bashes/init.sh dosyası bulunamadı.${NC}"
-fi
+source /bashes/init.sh
