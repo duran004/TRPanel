@@ -42,7 +42,14 @@ else
   echo -e "${YELLOW}### Paketler kaldırılmadı, mevcut kurulum devam ediyor ###${NC}"
 fi
 
-
+check_packages="git openssh-client"
+for check_package in $check_packages; do
+  if dpkg -l | grep -q $check_package; then
+    echo -e "${GREEN}$check_package paketi yüklü.${NC}"
+  else
+    echo -e "${RED}$check_package paketi yüklü değil veya kaldırıldı.${NC}"
+  fi
+done
 
 
 echo -e "${YELLOW}### LAMP Kurulumu ###${NC}"
