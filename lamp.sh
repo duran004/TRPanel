@@ -9,10 +9,18 @@ NC='\033[0m' # No Color
 
 # Git yoksa yükle
 if ! dpkg -l | grep -q git; then
-  echo -e "${GREEN}git yüklü değil, yükleniyor...${NC}"
+  echo -e "${YELLOW}### Git yükleniyor ###${NC}"
   sudo apt update
   sudo apt install -y git
-  echo -e "${GREEN}git yüklendi.${NC}"
+
+  # Git'in kurulumunu kontrol et
+  if ! command -v git &> /dev/null; then
+      echo -e "${RED}Git yüklenemedi.${NC}"
+      exit 1
+  else
+      echo -e "${GREEN}Git yüklendi.${NC}"
+  fi
+
 else
   echo -e "${GREEN}git zaten yüklü.${NC}"
 fi
