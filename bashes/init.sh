@@ -24,10 +24,11 @@ read answer
 if [ "$answer" == "yes" ]; then
   echo -e "${RED}### Daha önce yüklenmiş olan paketler kaldırılıyor ###"
   
-  # Önceki kurulumları kaldır
-  apt remove --purge -y $packages
-  apt autoremove -y
-  apt autoclean
+  # Önceki kurulumları kaldır 
+  sudo apt purge --force-yes $packages
+  sudo apt remove --purge -y $packages
+  sudo apt autoremove -y
+  sudo apt autoclean
   
   # MySQL veri dizinini kaldır (isteğe bağlı, tüm verileri siler)
   rm -rf /var/lib/mysql
