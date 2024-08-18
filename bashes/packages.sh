@@ -19,6 +19,7 @@ sudo apt update
 for package in $packages; do
   if ! dpkg -l | grep -q $package; then
     sudo apt install -y $package
+    echo -e "${GREEN}$package yüklendi.${NC}"
   fi
 done
 
