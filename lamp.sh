@@ -42,6 +42,13 @@ else
   echo -e "${YELLOW}### Paketler kaldırılmadı, mevcut kurulum devam ediyor ###${NC}"
 fi
 
+# Dizin yoksa oluştur apache bazen oluşturmuyor
+if [ ! -d "/var/www/html" ]; then
+  mkdir -p /var/www/html
+fi
+cd /var/www/html
+
+
 check_packages="git openssh-client"
 for check_package in $check_packages; do
   if dpkg -l | grep -q $check_package; then
@@ -59,7 +66,7 @@ apt update
 # Paketler yüklü değilse yükle
 for package in $packages; do
   if ! dpkg -l | grep -q $package; then
-    apt install -y $package
+    sudo apt install -y $package
   fi
 done
 
