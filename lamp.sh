@@ -10,6 +10,48 @@ NC='\033[0m' # No Color
 project_folder="/var/www/html/TRPanel/bashes"
 packages="php apache2 mysql-server"
 default_language="tr"
+
+
+
+# Root kullanıcı olup olmadığını kontrol et
+if [ "$(id -u)" != "0" ]; then
+    echo -e "${RED}This script must be run as root.${NC}"
+  exit 1
+fi
+
+
+# Git'in kurulumunu kontrol et
+if ! command -v git &> /dev/null; then
+    sudo apt update
+    sudo apt install -y git
+    if ! command -v git &> /dev/null; then 
+        echo -e "${RED}Git is not installed.${NC}"
+        exit 1
+    fi
+fi
+
+# Dizin yoksa oluştur
+if [ ! -d "/var/www/html" ]; then
+  sudo mkdir -p /var/www/html
+  if [ ! -d "/var/www/html" ]; then
+    echo -e "${RED}The directory could not be created.${NC}"
+    exit 1
+    fi
+fi
+cd /var/www/html
+
+# Proje dizini varsa sil
+sudo rm -rf TRPanel
+
+# Git reposunu klonla
+
+git clone https://github.com/duran004/TRPanel.git
+if [ ! -d "/var/www/html/TRPanel" ]; then
+    echo -e "${RED}The project could not be cloned.${NC}"
+  exit 1
+fi
+cd TRPanel
+
 # Dili sor
 echo -e "${BLUE}Dil seçin / Choose language (tr/en):${NC}"
 read language
@@ -19,52 +61,6 @@ else
   source "$project_folder/lang/tr.sh"
 fi
 
-
-# Root kullanıcı olup olmadığını kontrol et
-if [ "$(id -u)" != "0" ]; then
-  echo -e "${RED}${lang[root_needed]}${NC}"
-  exit 1
-fi
-
-
-# Git'in kurulumunu kontrol et
-if ! command -v git &> /dev/null; then
-    echo -e "${YELLOW}### Git ${lang[installing]} ###${NC}"
-    sudo apt update
-    sudo apt install -y git
-    if ! command -v git &> /dev/null; then 
-        echo -e "${RED}Git ${lang[not_installed]}.${NC}"
-        exit 1
-    else
-        echo -e "${GREEN}Git ${lang[installed]}.${NC}"
-    fi
-else
-    echo -e "${GREEN}Git ${lang[have]}.${NC}"
-fi
-
-# Dizin yoksa oluştur
-if [ ! -d "/var/www/html" ]; then
-  echo -e "${GREEN}/var/www/html ${lang[creating]}...${NC}"
-  sudo mkdir -p /var/www/html
-  if [ ! -d "/var/www/html" ]; then
-    echo -e "${RED}/var/www/html ${lang[not_created]}.${NC}"
-    exit 1
-    fi
-fi
-cd /var/www/html
-
-# Proje dizini varsa sil
-echo -e "${GREEN}TRPanel ${lang[deleting]}...${NC}"
-sudo rm -rf TRPanel
-
-# Git reposunu klonla
-echo -e "${GREEN}Git ${lang[cloning]}...${NC}"
-git clone https://github.com/duran004/TRPanel.git
-if [ ! -d "/var/www/html/TRPanel" ]; then
-  echo -e "${RED}TRPanel ${lang[not_cloned]}.${NC}"
-  exit 1
-fi
-cd TRPanel
 
 source "$project_folder/init.sh"
 source "$project_folder/apache.sh"
