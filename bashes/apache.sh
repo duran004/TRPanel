@@ -29,8 +29,8 @@ else
   exit 1
 fi
 
-# Apache ve MySQL servislerini kontrol et
-echo -e "${YELLOW}### Apache & MySQL ${lang[enabling]} ###${NC}"
+# Apache  servislerini kontrol et
+echo -e "${YELLOW}### Apache ${lang[enabling]} ###${NC}"
 if ! service apache2 status > /dev/null 2>&1; then
   echo -e "${YELLOW}### Apache ${lang[enabling]} ###${NC}"
   if ! service apache2 start; then
@@ -41,15 +41,6 @@ else
   echo -e "${GREEN}### Apache ${lang[enabled]} ###${NC}"
 fi
 
-if ! service mysql status > /dev/null 2>&1; then
-  echo -e "${YELLOW}### MySQL ${lang[enabling]} ###${NC}"
-  if ! service mysql start; then
-    echo -e "${RED}### MySQL ${lang[not_enabled]} ###${NC}"
-    exit 1
-  fi
-else
-  echo -e "${GREEN}### MySQL ${lang[enabled]} ###${NC}"
-fi
 
 # Apache'yi yeniden başlat
 echo -e "${YELLOW}### Apache ${lang[restarting]} ###${NC}"
@@ -58,4 +49,4 @@ if ! sudo systemctl restart apache2; then
   exit 1
 fi
 
-echo -e "${GREEN}### Apache & MySQL ${lang[restarted]} ###${NC}"
+echo -e "${GREEN}### Apache  ${lang[restarted]} ###${NC}"
