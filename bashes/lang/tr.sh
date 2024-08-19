@@ -1,6 +1,7 @@
 #!/bin/bash
 
-declare -A lang=(
+declare -A lang
+lang=(
     [root_needed]="Bu projeyi çalıştırmak için root kullanıcısı olmalısınız."
     [have]="mevcut."
     [installed]="yüklendi."

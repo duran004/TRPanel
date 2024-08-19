@@ -1,6 +1,7 @@
 #!/bin/bash
 
-declare -A lang=(
+declare -A lang
+lang=(
     [root_needed]="You must be the root user to run this project."
     [have]="available."
     [installed]="installed."
