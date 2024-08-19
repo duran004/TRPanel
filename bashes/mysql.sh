@@ -2,14 +2,14 @@
 echo -e "${GREEN}### mysql_settings.sh ###${NC}"
 # MySQL root parolasını belirle
 if [ ! -f /var/lib/mysql/ibdata1 ]; then
-  echo -e "${BLUE}MySQL root parolası belirleyin:${NC}"
+  echo -e "${BLUE}MySQL ${lang[set_mysql_password]}...${NC}"
   read -s mysql_root_password
-  echo -e "${BLUE}MySQL root parolasını tekrar girin:${NC}"
+  echo -e "${BLUE}MySQL ${lang[repeat_mysql_password]}...${NC}"
   read -s mysql_root_password_repeat
 
   # Parolaların eşleşip eşleşmediğini kontrol et
   if [ "$mysql_root_password" != "$mysql_root_password_repeat" ]; then
-    echo -e "${RED}Parolalar eşleşmiyor. Lütfen tekrar deneyin.${NC}"
+    echo -e "${RED} ${lang[passwords_not_match]}${NC}"
     exit 1
   fi
 

@@ -1,56 +1,56 @@
 #!/bin/bash
 echo -e "${GREEN}### packages.sh ###${NC}"
-echo -e "${YELLOW}### git ve openssh kontrol ediliyor ###${NC}"
 # Paketleri güncelle
 sudo apt update
 
 check_packages="git openssh-client"
 for check_package in $check_packages; do
   if dpkg -l | grep -q $check_package; then
-    echo -e "${GREEN}$check_package paketi yüklü.${NC}"
+    echo -e "${GREEN}$check_package ${lang[installed]}.${NC}"
   else
-    echo -e "${RED}$check_package paketi yüklü değil veya kaldırıldı.${NC}"
+    echo -e "${RED}$check_package ${lang[not_installed]}.${NC}"
   fi
 done
 
-echo -e "${YELLOW}### LAMP Kurulumu ###${NC}"
+echo -e "${YELLOW}### LAMP ${lang[installing]} ###${NC}"
 
 
 # Paketler yüklü değilse yükle
 for package in $packages; do
 #   if ! dpkg -l | grep -q $package; then
     sudo apt install -y $package
-    echo -e "${GREEN}$package yüklendi.${NC}"
+    echo -e "${GREEN}$package ${lang[installed]}.${NC}"
 #   fi
 done
 
 #curl yükle
-echo -e "${YELLOW}### Curl yükleniyor ###${NC}"
+echo -e "${YELLOW}### Curl ${lang[installing]} ###${NC}"
 sudo apt-get install curl
 #path ekle
 export PATH=$PATH:/usr/local/bin
 # curl yüklü mü kontrol et
-echo -e "${YELLOW}Checking if curl is installed...${NC}"
+echo -e "${YELLOW}### Curl ${lang[checking]} ###${NC}"
 which curl
 if [ $? -eq 0 ]; then
-  echo -e "${GREEN}curl is installed.${NC}"
+  echo -e "${GREEN}curl ${lang[installed]}.${NC}"
 else
-  echo -e "${RED}curl is not installed.${NC}"
+  echo -e "${RED}curl ${lang[not_installed]}.${NC}"
   exit 1
 fi
 
-echo -e "${GREEN}### LAMP Kurulumu Bitti ###${NC}"
+echo -e "${GREEN}### LAMP ${lang[installed]} ###${NC}"
 
 # PHP paketlerini yükle
-echo -e "${YELLOW}###  PHP paketleri yükleniyor ###${NC}"
+echo -e "${YELLOW}###  ${lang[php_extensions]} ${lang[installing]} ###${NC}"
+sudo apt-get install libapache2-mod-php8.3 -y
 php_packages="php-mysql php-curl php-gd php-intl php-json php-mbstring php-xml php-zip php8.3-common"
 for php_package in $php_packages; do
   sudo apt install -y $php_package
   if ! dpkg -l | grep -q $php_package; then
-    echo -e "${RED}$php_package yüklenemedi.${NC}"
+    echo -e "${RED}$php_package ${lang[not_installed]}.${NC}"
     exit 1
   fi
-  echo -e "${GREEN}$php_package yüklendi.${NC}"
+  echo -e "${GREEN}$php_package ${lang[installed]}.${NC}"
 done
-echo -e "${GREEN}### PHP eklentileri yüklendi ###${NC}"
+echo -e "${GREEN}### ${lang[php_extensions]} ${lang[installed]} ###${NC}"
 
