@@ -15,6 +15,7 @@ class FileController
             \var_dump(TestModel::all());
         } catch (\Exception $e) {
             echo $e->getMessage();
+            log($e->getMessage());
         }
 
         $this->basePath = $dirnaname;
