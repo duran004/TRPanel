@@ -11,7 +11,12 @@ class Model
     public string $table;
     public function __construct()
     {
-        $this->db = new \PDO('mysql:host=localhost;dbname=trpanel', env('DB_USERNAME'), env('DB_PASSWORD'));
+        try {
+            $this->db = new \PDO('mysql:host=localhost;dbname=trpanel', env('DB_USERNAME'), env('DB_PASSWORD'));
+        } catch (\PDOException $e) {
+            echo $e->getMessage();
+            log($e->getMessage());
+        }
     }
 
     public static function all()
