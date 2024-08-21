@@ -15,7 +15,7 @@ class Model
             $this->db = new \PDO('mysql:host=localhost;dbname=trpanel', env('DB_USERNAME'), env('DB_PASSWORD'));
         } catch (\PDOException $e) {
             echo $e->getMessage();
-            Log::info($e->getMessage());
+            \Log::info($e->getMessage());
         }
     }
 
