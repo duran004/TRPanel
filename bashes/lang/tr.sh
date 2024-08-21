@@ -41,7 +41,13 @@ lang=(
     [granting_access]="erişim izni veriliyor..."
     [completed]="tamamlandı."
     [debug_mode]="Hata ayıklama modu açılsın mı?"
-
+    [db_user]="phpMyAdmin veritabanı kullanıcı adı:"
+    [db_pass]="phpMyAdmin veritabanı şifresi:"
+    [db_pass_repeat]="phpMyAdmin veritabanı şifresi tekrar:"
+    [allowing_access]="erişim izni veriliyor..."
+    [db_configuring]="veritabanı yapılandırılıyor..."
+    [reconfiguring]="yeniden yapılandırılıyor..."
+    
 
 
 )
