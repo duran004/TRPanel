@@ -2,7 +2,7 @@
 echo -e "${GREEN}### mysql_settings.sh ###${NC}"
 # MySQL yükle
 echo -e "${YELLOW}### MySQL ${lang[installing]} ###${NC}"
-sudo apt-get install mysql-server -y
+sudo apt-get install mysql-server mysql-client -y
 # MySQL yüklü mü kontrol et
 if ! service mysql status > /dev/null 2>&1; then
   echo -e "${YELLOW}### MySQL ${lang[enabling]} ###${NC}"
