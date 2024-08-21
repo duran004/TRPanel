@@ -32,8 +32,8 @@ class SysHelper
             if (file_exists("composer.lock")) {
                 unlink("composer.lock");
             }
-            exec('git reset --hard 2>&1', $output, $return_var);
-            exec('git pull origin main 2>&1', $output, $return_var);
+            exec('sudo git reset --hard 2>&1', $output, $return_var);
+            exec('sudo git pull origin main 2>&1', $output, $return_var);
             if ($return_var !== 0) {
                 echo "Git update failed. Output: " . implode("\n", $output);
             } else {
