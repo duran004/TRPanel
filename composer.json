@@ -6,6 +6,9 @@
             "Model\\": "app/Model/",
             "View\\": "app/View/",
             "Helper\\": "app/Helper/"
-        }
+        },
+        "files": [
+            "app/Helper/Helpers.php"
+        ]
     }
 }
