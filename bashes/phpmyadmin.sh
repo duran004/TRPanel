@@ -5,8 +5,8 @@ echo "### phpmyadmin.sh ###"
 DB_USER="root"    # phpMyAdmin veritabanı kullanıcı adı sor
 DB_PASS="123" # phpMyAdmin veritabanı şifresi
 DB_PASS2="123" # phpMyAdmin veritabanı şifresi tekrar
-echo -e "${YELLOW}### phpMyAdmin ${lang[db_user]} ###${NC}"
-read DB_USER
+# echo -e "${YELLOW}### phpMyAdmin ${lang[db_user]} ###${NC}"
+# read DB_USER
 echo -e "${YELLOW}### phpMyAdmin ${lang[db_pass]} ###${NC}"
 read DB_PASS
 echo -e "${YELLOW}### phpMyAdmin ${lang[db_pass_repeat]} ###${NC}"
@@ -52,7 +52,7 @@ sudo debconf-set-selections <<< "phpmyadmin phpmyadmin/dbconfig-install boolean 
 sudo debconf-set-selections <<< "phpmyadmin phpmyadmin/mysql/admin-pass password ${DB_PASS}"
 sudo debconf-set-selections <<< "phpmyadmin phpmyadmin/mysql/app-pass password ${DB_PASS}"
 sudo debconf-set-selections <<< "phpmyadmin phpmyadmin/mysql/reconfig-root-password password ${DB_PASS}"
-sudo debconf-set-selections <<< "phpmyadmin phpmyadmin/mysql/app-user string ${DB_USER}"
+# sudo debconf-set-selections <<< "phpmyadmin phpmyadmin/mysql/app-user string ${DB_USER}"
 
 # phpMyAdmin yapılandırmasını güncelle
 echo -e "${YELLOW}### phpMyAdmin ${lang[reconfiguring]} ###${NC}"
