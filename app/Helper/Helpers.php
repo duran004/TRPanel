@@ -1,6 +1,8 @@
 <?php
 // Global değişkenler
-global $env;
+//değişkenler
+$baseDir = __DIR__ . '/../../';
+global $env, $baseDir;
 // .env dosyasını yükle
 if (!function_exists('loadEnv')) {
     function loadEnv($path)
@@ -30,7 +32,7 @@ if (!function_exists('loadEnv')) {
     }
 }
 
-$envFilePath = __DIR__ . '/../../.env';
+$envFilePath = $baseDir . '.env';
 $env = loadEnv($envFilePath);
 if (!function_exists('env')) {
     function env($key, $default = null)
@@ -40,5 +42,25 @@ if (!function_exists('env')) {
             return $env[$key];
         }
         return $default;
+    }
+}
+
+if (!function_exists('dd')) {
+    function dd($data)
+    {
+        echo '<pre>';
+        var_dump($data);
+        echo '</pre>';
+        die();
+    }
+}
+
+if (!function_exists('log')) {
+    function log($data)
+    {
+        global $baseDir;
+        $logFile = $baseDir . 'logs/log.txt';
+        $logData = date('Y-m-d H:i:s') . ' - ' . json_encode($data) . PHP_EOL;
+        file_put_contents($logFile, $logData, FILE_APPEND);
     }
 }
