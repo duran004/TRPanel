@@ -55,12 +55,14 @@ if (!function_exists('dd')) {
     }
 }
 
-if (!function_exists('log')) {
-    function log($data)
+if (!class_exists('Log')) {
+    class Log
     {
-        global $baseDir;
-        $logFile = $baseDir . 'logs/log.txt';
-        $logData = date('Y-m-d H:i:s') . ' - ' . json_encode($data) . PHP_EOL;
-        file_put_contents($logFile, $logData, FILE_APPEND);
+        public static function info($message)
+        {
+            $logFile = $GLOBALS['baseDir'] . 'logs/' . date('Y-m-d') . '.log';
+            $message = date('Y-m-d H:i:s') . ' - ' . $message . PHP_EOL;
+            file_put_contents($logFile, $message, FILE_APPEND);
+        }
     }
 }
