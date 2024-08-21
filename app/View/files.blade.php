@@ -63,9 +63,9 @@
             <tr>
                 <td>
                     @if (is_dir($filepath)):
-                        <img width="21" src="https://img.icons8.com/ios/50/000000/folder-invoices.png" />
+                        <div class="dir"></div>
                     @else
-                        <img width="21" src="https://img.icons8.com/ios/50/000000/file.png" />
+                        <div class="file"></div>
                     @endif
                 </td>
                 <td title="{{ $filepath }}">{{ $file }}</td>

@@ -6,9 +6,11 @@ use App\View\View;
 
 class FileController
 {
-    public $basePath = __DIR__ . '/../../';
-    public function files()
+    public function __construct(public string $basePath) {}
+
+    public function files(string $dirnaname = __DIR__ . '/../../')
     {
+        $this->basePath = $dirnaname;
         return scandir($this->basePath);
     }
 }

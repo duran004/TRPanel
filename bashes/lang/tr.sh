@@ -34,6 +34,12 @@ lang=(
     [project_permissions_not_changed]="Proje izinleri değiştirilemedi."
     [composer_packages]="Composer paketleri"
     [project_settings]="Proje ayarları"
+    [project_settings_changing]="Proje ayarları değiştiriliyor..."
+    [project_settings_changed]="Proje ayarları değiştirildi."
+    [project_settings_not_changed]="Proje ayarları değiştirilemedi."
+    [adding_to_apache]="Apache'ye ekleniyor..."
+    [granting_access]="erişim izni veriliyor..."
+    
 
 
 )
