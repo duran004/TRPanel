@@ -1,4 +1,4 @@
-@style('alert.css')
+@style('alert.css?v=@php echo time(); @endphp')
 </body>
 
 </html>
