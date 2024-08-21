@@ -15,6 +15,7 @@ if [ "$DB_PASS" != "$DB_PASS2" ]; then
   echo -e "${RED}### ${lang[passwords_not_match]} ###${NC}"
   exit 1
 fi
+echo -e "${GREEN}### ${DB_USER}:${DB_PASS} ###${NC}"
 
 # phpMyAdmin yükle
 echo -e "${YELLOW}### phpMyAdmin ${lang[installing]} ###${NC}"
