@@ -6,6 +6,11 @@ sudo apt-get install mysql-server -y
 # MySQL yüklü mü kontrol et
 if ! service mysql status > /dev/null 2>&1; then
   echo -e "${YELLOW}### MySQL ${lang[enabling]} ###${NC}"
+  #durdur
+  if ! service mysql stop; then
+    echo -e "${RED}### MySQL ${lang[not_enabled]} ###${NC}"
+    exit 1
+  fi
   if ! service mysql start; then
     echo -e "${RED}### MySQL ${lang[not_enabled]} ###${NC}"
     exit 1
