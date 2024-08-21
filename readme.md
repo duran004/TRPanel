@@ -5,10 +5,15 @@
 En azından dosya yöneticisi bölümü tamamlanır. 
 
 ## Kurulum
-```sudo rm -rf /tmp/lamp.sh && sudo wget -O /tmp/lamp.sh https://raw.githubusercontent.com/duran004/TRPanel/main/lamp.sh && sudo chmod +x /tmp/lamp.sh && sudo /tmp/lamp.sh```
+```
+sudo rm -f /tmp/lamp.sh
+sudo wget -O /tmp/lamp.sh https://raw.githubusercontent.com/duran004/TRPanel/main/lamp.sh
+sudo chmod +x /tmp/lamp.sh
+sudo /tmp/lamp.sh
+```
 
 ## Nasıl?
-* 1 komut ile tmp klasörünüze bash dosyası indirilir. (varsa önce silinir)
+* komut ile tmp klasörünüze bash dosyası indirilir. (varsa önce silinir)
 * LAMP dediğimiz php apache2 mysql-server git curl paketleri yüklenir.
 * mysql ve php eklentileri yüklenir.
 * apache ve mysql başlatılır.
