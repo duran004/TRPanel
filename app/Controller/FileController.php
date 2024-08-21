@@ -6,7 +6,7 @@ use App\View\View;
 
 class FileController
 {
-    public function __construct(public string $basePath) {}
+    public string $basePath;
 
     public function files(string $dirnaname = __DIR__ . '/../../')
     {
