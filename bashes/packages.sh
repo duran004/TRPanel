@@ -54,4 +54,4 @@ for php_package in $php_packages; do
 done
 echo -e "${GREEN}### ${lang[php_extensions]} ${lang[installed]} ###${NC}"
 
-echo -e "${GREEN}### ${lang[complated]} ###${NC}"
+echo -e "${GREEN}### ${lang[completed]} ###${NC}"

@@ -32,4 +32,4 @@ echo -e "${GREEN}###  ${lang[composer_packages]} ${lang[installed]} ###${NC}"
 
 
 
-echo -e "${GREEN}### ${lang[complated]} ###${NC}"
+echo -e "${GREEN}### ${lang[completed]} ###${NC}"
