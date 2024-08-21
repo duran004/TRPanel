@@ -40,6 +40,7 @@ lang=(
     [adding_to_apache]="Apache'ye ekleniyor..."
     [granting_access]="erişim izni veriliyor..."
     [completed]="tamamlandı."
+    [debug_mode]="Hata ayıklama modu açılsın mı?"
 
 
 
