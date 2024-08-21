@@ -39,7 +39,8 @@ lang=(
     [project_settings_not_changed]="Proje ayarları değiştirilemedi."
     [adding_to_apache]="Apache'ye ekleniyor..."
     [granting_access]="erişim izni veriliyor..."
-    
+    [completed]="tamamlandı."
+
 
 
 )

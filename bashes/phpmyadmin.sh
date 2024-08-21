@@ -37,4 +37,4 @@ ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'YeniSifr
 FLUSH PRIVILEGES;
 EOF
 
-echo "### İşlem tamamlandı ###"
+echo -e "${GREEN}### ${lang[complated]} ###${NC}"

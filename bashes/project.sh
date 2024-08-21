@@ -31,4 +31,5 @@ composer install
 echo -e "${GREEN}###  ${lang[composer_packages]} ${lang[installed]} ###${NC}"
 
 
-echo -e "${BLUE} ${lang[project_settings]}...${NC}"
+
+echo -e "${GREEN}### ${lang[complated]} ###${NC}"

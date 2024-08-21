@@ -50,3 +50,4 @@ if ! sudo systemctl restart apache2; then
 fi
 
 echo -e "${GREEN}### Apache  ${lang[restarted]} ###${NC}"
+echo -e "${GREEN}### ${lang[complated]} ###${NC}"

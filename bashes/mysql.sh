@@ -30,4 +30,4 @@ if [ ! -f /var/lib/mysql/ibdata1 ]; then
   echo "mysql-server mysql-server/root_password password $mysql_root_password" | debconf-set-selections
   echo "mysql-server mysql-server/root_password_again password $mysql_root_password" | debconf-set-selections
 fi
-
+echo -e "${GREEN}### ${lang[complated]} ###${NC}"
