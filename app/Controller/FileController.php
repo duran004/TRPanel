@@ -11,7 +11,12 @@ class FileController
 
     public function files(string $dirnaname = __DIR__ . '/../../')
     {
-        \var_dump(TestModel::all());
+        try {
+            \var_dump(TestModel::all());
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+        }
+
         $this->basePath = $dirnaname;
         return scandir($this->basePath);
     }
