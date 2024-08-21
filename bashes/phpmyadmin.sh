@@ -1,6 +1,10 @@
 #!/bin/bash
 echo "### phpmyadmin.sh ###"
 
+# Kullanıcı adı ve şifreyi ayarla
+DB_USER="root"    # phpMyAdmin veritabanı kullanıcı adı
+DB_PASS="123" # phpMyAdmin veritabanı şifresi
+
 # phpMyAdmin yükle
 echo "### phpMyAdmin yükleniyor ###"
 sudo apt-get install phpmyadmin -y
@@ -30,11 +34,23 @@ sudo sed -i "s/   Allow from None/    Allow from All/g" /etc/phpmyadmin/apache.c
 echo "### Apache yeniden başlatılıyor ###"
 sudo service apache2 restart
 
+# phpMyAdmin için veritabanı yapılandırması
+echo "### phpMyAdmin veritabanı yapılandırması yapılıyor ###"
+sudo debconf-set-selections <<< "phpmyadmin phpmyadmin/dbconfig-install boolean true"
+sudo debconf-set-selections <<< "phpmyadmin phpmyadmin/mysql/admin-pass password ${DB_PASS}"
+sudo debconf-set-selections <<< "phpmyadmin phpmyadmin/mysql/app-pass password ${DB_PASS}"
+sudo debconf-set-selections <<< "phpmyadmin phpmyadmin/mysql/reconfig-root-password password ${DB_PASS}"
+sudo debconf-set-selections <<< "phpmyadmin phpmyadmin/mysql/app-user string ${DB_USER}"
+
+# phpMyAdmin yapılandırmasını güncelle
+echo "### phpMyAdmin yapılandırması güncelleniyor ###"
+sudo dpkg-reconfigure phpmyadmin
+
 # MySQL root kullanıcısının kimlik doğrulama eklentisini 'auth_socket'tan 'mysql_native_password'a değiştir
 echo "### MySQL root kimlik doğrulama yöntemi değiştiriliyor ###"
 sudo mysql -u root <<EOF
-ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'YeniSifre';
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '${DB_PASS}';
 FLUSH PRIVILEGES;
 EOF
 
-echo -e "${GREEN}### ${lang[completed]} ###${NC}"
+echo "### phpMyAdmin kurulumu tamamlandı ###"
