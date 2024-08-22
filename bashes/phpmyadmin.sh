@@ -65,4 +65,14 @@ ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '${DB_PAS
 FLUSH PRIVILEGES;
 EOF
 
+# trpanel veritabanı ve test tablosu oluştur
+echo -e "${YELLOW}### phpMyAdmin ${lang[creating_db]} ###${NC}"
+sudo mysql -u root -p${DB_PASS} <<EOF
+CREATE DATABASE IF NOT EXISTS trpanel;
+USE trpanel;
+CREATE TABLE IF NOT EXISTS test (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255));
+INSERT INTO test (name) VALUES ('Duran Can Yılmaz');
+INSERT INTO test (name) VALUES ('test');
+EOF
+
 echo -e "${GREEN}### phpMyAdmin ${lang[completed]} ###${NC}"

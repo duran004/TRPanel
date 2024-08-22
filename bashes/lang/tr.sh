@@ -47,6 +47,7 @@ lang=(
     [allowing_access]="erişim izni veriliyor..."
     [db_configuring]="veritabanı yapılandırılıyor..."
     [reconfiguring]="yeniden yapılandırılıyor..."
+    [creating_db]="veritabanı oluşturuluyor..."
     
 
 
