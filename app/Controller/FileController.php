@@ -13,6 +13,7 @@ class FileController
     {
         try {
             \var_dump(TestModel::all());
+            \var_dump(TestModel::find(1));
         } catch (\Exception $e) {
             echo $e->getMessage();
             log($e->getMessage());
