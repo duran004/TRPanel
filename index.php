@@ -11,7 +11,6 @@ $requestMethod = $_SERVER['REQUEST_METHOD'];
 
 
 $route = new Route($requestUri, $requestMethod);
-Route::get('', AppController::class . '@file_manager');
-Route::get('update', SysHelper::class . '@update');
+require_once 'app/routes.php';
 
 $route->run();

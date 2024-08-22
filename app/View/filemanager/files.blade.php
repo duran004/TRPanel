@@ -19,7 +19,9 @@
 @endphp
 
 <div class="container-fluid bg-dark text-white px-3 py-0">
+    <a href="/filemanager" class="text-white">
     <h1>File Manager</h1>
+    </a>
 </div>
 <div class="container-fluid bg-light px-3 py-0">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -55,24 +57,42 @@
         </thead>
         @foreach ($files as $file):
             @php
-                $filepath = $basePath . $file;
-                if ($file == '..' or $file == '.') {
-                    continue;
-                }
+                
+                
+              
+                // $absolutePath = "C:\xampp\htdocs\TRPanel\app\Controller/../../app";
+
+                
+                // dd(is_dir($absolutePath));
+                // dd($absolutePath);
             @endphp
             <tr>
-                <td>
-                    @if (is_dir($filepath)):
-                        <div class="dir"></div>
+                <td @if (is_dir($file->path)): class="dir_click" @endif data-path="{{ $file->path }}">
+                    @if (is_dir($file->path)):
+                        <div class="dir dir_click" data-path="{{ $file->path }}"></div>
                     @else
                         <div class="file"></div>
                     @endif
                 </td>
-                <td title="{{ $filepath }}">{{ $file }}</td>
-                <td>{{ @formatSizeUnits(filesize($filepath)) }}</td>
-                <td>{{ @date('Y-m-d H:i:s', filemtime($filepath)) }}</td>
-                <td>{{ @is_dir($filepath) ? 'Directory' : 'File' }}</td>
-                <td>{{ @substr(sprintf('%o', fileperms($filepath)), -4) }}</td>
+                <td title="{{ $file->path }}" @if (is_dir($file->path)): class="dir_click" @endif data-path="{{ $file->path }}">{{ $file->name }}</td>
+                <td>{{ @formatSizeUnits(filesize($file->path)) }}</td>
+                <td>{{ @date('Y-m-d H:i:s', filemtime($file->path)) }}</td>
+                <td>{{  is_dir(realpath($file->path)) ? 'Directory' : 'File' }}</td>
+                <td>{{ @substr(sprintf('%o', fileperms($file->path)), -4) }}</td>
         @endforeach
     </table>
 </x-files>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const dirs = document.querySelectorAll('.dir_click');
+
+    dirs.forEach(function(dir) {
+        dir.addEventListener('dblclick', function() {
+            const dirPath = this.getAttribute('data-path');
+            console.log('Selected Directory Path:', dirPath);
+            window.location.href = '/filemanager?path=' + dirPath;
+        });
+    });
+});
+
+</script>

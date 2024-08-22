@@ -12,15 +12,17 @@ class AppController
     {
         $this->fileController = new FileController();
     }
-    public function file_manager()
+
+    public function index()
     {
         $data = [
-            'title' => 'File Manager',
-            'files' => $this->fileController->files(),
-            'basePath' => $this->fileController->basePath,
+            'title' => 'TRPanel',
         ];
-        echo View::view('header', $data);
-        echo View::view('files', $data);
-        echo View::view('footer', $data);
+        echo View::view('welcome', $data);
+    }
+
+    public function phpinfo()
+    {
+        phpinfo();
     }
 }
