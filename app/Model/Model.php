@@ -100,8 +100,5 @@ class Model
     // {
     //     return $this->db->lastQuery;
     // }
-    public function __destruct()
-    {
-        $this->db = null;
-    }
+
 }
