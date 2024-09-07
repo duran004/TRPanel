@@ -2,8 +2,8 @@
 echo "### phpmyadmin.sh ###"
 
 # Kullanıcı adı ve şifreyi ayarla
-read -p "phpMyAdmin kullanıcı adını girin (varsayılan: duran): " DB_USER
-DB_USER=${DB_USER:-duran}  # Kullanıcı adı girilmezse duran kullanılır
+read -p "phpMyAdmin kullanıcı adını girin (varsayılan: root): " DB_USER
+DB_USER=${DB_USER:-root}  # Kullanıcı adı girilmezse root kullanılır
 
 # Şifreyi al
 read -sp "phpMyAdmin şifresi: " DB_PASS
