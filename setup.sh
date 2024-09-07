@@ -61,11 +61,15 @@ else
   source "$project_folder/lang/tr.sh"
 fi
 
-
+# lampı kurmayı atlamak için sor
+echo -e "${YELLOW}LAMP kurulumunu atlamak ister misiniz?${NC}"
+read -p "y/n: " skip_lamp
 source "$project_folder/init.sh"
+if [ "$skip_lamp" == "n" ]; then
 source "$project_folder/apache.sh"
 source "$project_folder/php.sh"
 source "$project_folder/packages.sh"
 source "$project_folder/mysql.sh"
 source "$project_folder/phpmyadmin.sh"
+fi
 source "$project_folder/project.sh"
