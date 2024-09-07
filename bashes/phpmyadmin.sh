@@ -2,8 +2,8 @@
 echo "### phpmyadmin.sh ###"
 
 # Kullanıcı adı ve şifreyi ayarla
-read -p "phpMyAdmin kullanıcı adını girin (varsayılan: root): " DB_USER
-DB_USER=${DB_USER:-root}  # Kullanıcı adı girilmezse root kullanılır
+read -p "phpMyAdmin kullanıcı adını girin (varsayılan: duran): " DB_USER
+DB_USER=${DB_USER:-duran}  # Kullanıcı adı girilmezse duran kullanılır
 
 # Şifreyi al
 read -sp "phpMyAdmin şifresi: " DB_PASS
@@ -19,7 +19,20 @@ fi
 
 echo "### Kullanıcı: ${DB_USER} ###"
 
-# phpMyAdmin yüklü mü kontrol et
+# MySQL kullanıcısının mevcut olup olmadığını kontrol et ve şifreyi güncelle
+echo "MySQL kullanıcı ayarları yapılıyor..."
+sudo mysql -u root <<EOF
+-- Kullanıcı varsa şifresini günceller, yoksa oluşturur
+CREATE USER IF NOT EXISTS '${DB_USER}'@'localhost' IDENTIFIED BY '${DB_PASS}';
+-- Kullanıcının şifresini ve kimlik doğrulama yöntemini günceller
+ALTER USER '${DB_USER}'@'localhost' IDENTIFIED WITH mysql_native_password BY '${DB_PASS}';
+-- Kullanıcıya tüm veritabanları için tüm yetkileri verir
+GRANT ALL PRIVILEGES ON *.* TO '${DB_USER}'@'localhost' WITH GRANT OPTION;
+-- Yetkileri güncelle
+FLUSH PRIVILEGES;
+EOF
+
+# phpMyAdmin kuruluysa yeniden kurulum yapmadan devam et
 if dpkg -l | grep -q phpmyadmin; then
     echo "phpMyAdmin zaten yüklü."
 else
@@ -38,16 +51,19 @@ if [ ! -f /etc/apache2/conf-available/phpmyadmin.conf ]; then
     sudo a2enconf phpmyadmin
 fi
 
-# Apache'yi yeniden başlat
-echo "Apache yeniden başlatılıyor..."
-sudo service apache2 restart
-
 # MySQL kimlik doğrulama ayarları
 echo "MySQL kimlik doğrulama ayarları değiştiriliyor..."
 sudo mysql -u root <<EOF
 ALTER USER '${DB_USER}'@'localhost' IDENTIFIED WITH mysql_native_password BY '${DB_PASS}';
 FLUSH PRIVILEGES;
 EOF
+
+# Apache'yi yeniden başlat
+echo "Apache yeniden başlatılıyor..."
+sudo service apache2 restart
+
+echo "Kurulum tamamlandı."
+
 
 # Örnek veritabanı oluştur
 echo "Veritabanı ve tablo oluşturuluyor..."
