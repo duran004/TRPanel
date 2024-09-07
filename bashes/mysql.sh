@@ -19,6 +19,11 @@ echo -e "${YELLOW}### MySQL yeniden yükleniyor... ###${NC}"
 sudo apt-get update
 sudo apt-get install mysql-server mysql-client -y
 
+#grup ve kullanıcı oluştur
+sudo groupadd mysql
+sudo useradd -r -g mysql -s /bin/false mysql
+
+
 # MySQL servisini başlat
 echo -e "${YELLOW}### MySQL servisi başlatılıyor... ###${NC}"
 if ! sudo systemctl start mysql; then
