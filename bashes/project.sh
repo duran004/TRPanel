@@ -46,6 +46,7 @@ cd /var/www/html/TRPanelLaravel
 #.env.example dosyasını .env olarak kopyala
 cp .env.example .env
 composer install
+npm install
 npm run build
 php artisan key:generate
 php artisan migrate
