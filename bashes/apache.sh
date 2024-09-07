@@ -1,5 +1,5 @@
 #!/bin/bash
-echo -e "${GREEN}$(figlet -f slant "Apache2 Kurulumu")${NC}"
+echo -e "${GREEN} $(figlet -f slant "Apache2 Kurulumu") ${NC}"
 # Apache2 yükle
 echo -e "${YELLOW}### Apache2 ${lang[installing]} ###${NC}"
 sudo apt-get install apache2 -y

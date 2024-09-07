@@ -1,5 +1,5 @@
 #!/bin/bash
-echo -e "${GREEN}$(figlet -f slant "MySQL Kurulumu")${NC}"
+echo -e "${GREEN} $(figlet -f slant "MySQL Kurulumu") ${NC}"
 MYSQL_PASS="123456"
 # MySQL tamamen kaldır
 echo -e "${YELLOW}### MySQL tamamen kaldırılıyor... ###${NC}"
