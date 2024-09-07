@@ -7,6 +7,9 @@ read -p "y/n: " debug_mode
 if [ "$debug_mode" == "y" ]; then
   DEBUG_MODE=true
   set -x
+else
+  DEBUG_MODE=false
+  set +x
 fi
 
 

@@ -45,7 +45,7 @@ sudo rm -rf TRPanel
 
 # Git reposunu klonla
 
-git clone https://github.com/duran004/TRPanel.git
+git clone https://github.com/duran004/TRPanel-Laravel.git TRPanel
 if [ ! -d "/var/www/html/TRPanel" ]; then
     echo -e "${RED}The project could not be cloned.${NC}"
   exit 1
