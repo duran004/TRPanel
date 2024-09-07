@@ -16,12 +16,12 @@ project_folder="/var/www/html/TRPanel/bashes"
 packages="php apache2 mysql-server"
 default_language="tr"
 sudo apt-get install figlet
-log -e "${GREEN}$(figlet -f slant "TRPanel Kurulumu")${NC}"
+log "${GREEN}$(figlet -f slant "TRPanel Kurulumu")${NC}"
 
 
 # Root kullanıcı olup olmadığını kontrol et
 if [ "$(id -u)" != "0" ]; then
-    log -e "${RED}This script must be run as root.${NC}"
+    log "${RED}This script must be run as root.${NC}"
   exit 1
 fi
 
@@ -32,7 +32,7 @@ if ! command -v git &> /dev/null; then
     sudo apt update
     sudo apt install -y git
     if ! command -v git &> /dev/null; then 
-        log -e "${RED}Git is not installed.${NC}"
+        log "${RED}Git is not installed.${NC}"
         exit 1
     fi
 fi
@@ -41,7 +41,7 @@ fi
 if [ ! -d "/var/www/html" ]; then
   sudo mkdir -p /var/www/html
   if [ ! -d "/var/www/html" ]; then
-    log -e "${RED}The directory could not be created.${NC}"
+    log "${RED}The directory could not be created.${NC}"
     exit 1
     fi
 fi
@@ -54,13 +54,13 @@ sudo rm -rf TRPanel
 
 git clone https://github.com/duran004/TRPanel.git TRPanel
 if [ ! -d "/var/www/html/TRPanel" ]; then
-    log -e "${RED}The project could not be cloned.${NC}"
+    log "${RED}The project could not be cloned.${NC}"
   exit 1
 fi
 cd TRPanel
 
 # Dili sor
-log -e "${BLUE}Dil seçin / Choose language (tr/en):${NC}"
+log "${BLUE}Dil seçin / Choose language (tr/en):${NC}"
 read language
 if [ "$language" == "en" ]; then
   source "$project_folder/lang/en.sh"
@@ -69,7 +69,7 @@ else
 fi
 
 # lampı kurmayı atlamak için sor
-log -e "${YELLOW}LAMP kurulumunu atlamak ister misiniz?${NC}"
+log "${YELLOW}LAMP kurulumunu atlamak ister misiniz?${NC}"
 read -p "y/n: " skip_lamp
 source "$project_folder/init.sh"
 if [ "$skip_lamp" == "n" ]; then

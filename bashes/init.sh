@@ -1,9 +1,9 @@
 #!/bin/bash
-log -e "${GREEN} $(figlet -f slant "Init") ${NC}"
+log "${GREEN} $(figlet -f slant "Init") ${NC}"
 
 DEBUG_MODE=false
 #debug mode açılsın mı? diye sor
-log -e "${YELLOW}### ${lang[debug_mode]} ###${NC}"
+log "${YELLOW}### ${lang[debug_mode]} ###${NC}"
 read -p "y/n: " debug_mode
 if [ "$debug_mode" == "y" ]; then
   DEBUG_MODE=true

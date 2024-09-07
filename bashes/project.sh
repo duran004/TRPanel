@@ -1,18 +1,18 @@
 #!/bin/bash
-log -e "${GREEN} $(figlet -f slant "Proje Kurulumu") ${NC}"
+log "${GREEN} $(figlet -f slant "Proje Kurulumu") ${NC}"
 
 #npm kur
-log -e "${YELLOW}### Npm ${lang[installing]} ###${NC}"
+log "${YELLOW}### Npm ${lang[installing]} ###${NC}"
 sudo apt install -y npm
-log -e "${GREEN}### Npm ${lang[installed]} ###${NC}"
+log "${GREEN}### Npm ${lang[installed]} ###${NC}"
 # vite kur
-log -e "${YELLOW}### Vite ${lang[installing]} ###${NC}"
+log "${YELLOW}### Vite ${lang[installing]} ###${NC}"
 npm install -g create-vite
-log -e "${GREEN}### Vite ${lang[installed]} ###${NC}"
+log "${GREEN}### Vite ${lang[installed]} ###${NC}"
 
 
 # Composer'ı indir
-log -e "${YELLOW}### Composer ${lang[installing]} ###${NC}"
+log "${YELLOW}### Composer ${lang[installing]} ###${NC}"
 curl -sS https://getcomposer.org/installer -o composer-setup.php
 # Composer'ı yükle
 php composer-setup.php --install-dir=/usr/local/bin --filename=composer
@@ -20,7 +20,7 @@ php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 php -r "unlink('composer-setup.php');"
 # Composer'ı PATH'e ekle
 export PATH=$PATH:/usr/local/bin
-log -e "${GREEN}### Composer ${lang[installed]} ###${NC}"
+log "${GREEN}### Composer ${lang[installed]} ###${NC}"
 
 # gitden projey çek /var/www/html dizinine
 cd /var/www/html
@@ -29,12 +29,12 @@ sudo rm -rf TRPanelLaravel
 git clone https://github.com/duran004/TRPanel-Laravel.git TRPanelLaravel
 
 # Proje dizinine yetki ver
-log -e "${BLUE} ${lang[project_permissions_changing]}...${NC}"
+log "${BLUE} ${lang[project_permissions_changing]}...${NC}"
 git config --global --add safe.directory /var/www/html/TRPanelLaravel
 chown -R www-data:www-data TRPanelLaravel
 chmod -R 755 TRPanelLaravel
 # sudo chown www-data:www-data TRPanel/.htaccess
-log -e "${GREEN}### ${lang[project_permissions_changed]} ###${NC}"
+log "${GREEN}### ${lang[project_permissions_changed]} ###${NC}"
 cd /var/www/html/TRPanelLaravel
 #.env.example dosyasını .env olarak kopyala
 cp .env.example .env
@@ -46,8 +46,8 @@ php artisan db:seed
 php artisan storage:link
 php artisan serve
 
-log -e "${GREEN}###  ${lang[composer_packages]} ${lang[installed]} ###${NC}"
+log "${GREEN}###  ${lang[composer_packages]} ${lang[installed]} ###${NC}"
 
 
 
-log -e "${GREEN}### ${lang[completed]} ###${NC}"
+log "${GREEN}### ${lang[completed]} ###${NC}"

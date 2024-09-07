@@ -1,5 +1,5 @@
 #!/bin/bash
-log -e "${GREEN} $(figlet -f slant "phpMyAdmin Kurulumu") ${NC}"
+log "${GREEN} $(figlet -f slant "phpMyAdmin Kurulumu") ${NC}"
 
 # Kullanıcı adı ve şifreyi ayarla
 
