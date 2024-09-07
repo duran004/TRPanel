@@ -11,8 +11,8 @@ npm install -g create-vite
 echo -e "${GREEN}### Vite ${lang[installed]} ###${NC}"
 
 
-echo -e "${YELLOW}### Composer ${lang[installing]} ###${NC}"
 # Composer'ı indir
+echo -e "${YELLOW}### Composer ${lang[installing]} ###${NC}"
 curl -sS https://getcomposer.org/installer -o composer-setup.php
 # Composer'ı yükle
 php composer-setup.php --install-dir=/usr/local/bin --filename=composer
@@ -20,11 +20,12 @@ php composer-setup.php --install-dir=/usr/local/bin --filename=composer
 php -r "unlink('composer-setup.php');"
 # Composer'ı PATH'e ekle
 export PATH=$PATH:/usr/local/bin
-
 echo -e "${GREEN}### Composer ${lang[installed]} ###${NC}"
 
 # gitden projey çek /var/www/html dizinine
 cd /var/www/html
+# varsa sil
+sudo rm -rf TRPanelLaravel
 git clone https://github.com/duran004/TRPanel-Laravel.git TRPanelLaravel
 
 # Proje dizinine yetki ver
