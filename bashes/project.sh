@@ -1,6 +1,10 @@
 #!/bin/bash
 echo -e "${GREEN}### project_settings.sh ###${NC}"
 
+#npm kur
+echo -e "${YELLOW}### Npm ${lang[installing]} ###${NC}"
+sudo apt install -y npm
+echo -e "${GREEN}### Npm ${lang[installed]} ###${NC}"
 
 
 echo -e "${YELLOW}### Composer ${lang[installing]} ###${NC}"
@@ -17,6 +21,7 @@ echo -e "${GREEN}### Composer ${lang[installed]} ###${NC}"
 
 # gitden projey çek /var/www/html dizinine
 cd /var/www/html
+git clone https://github.com/duran004/TRPanel-Laravel.git Laravel
 
 # Proje dizinine yetki ver
 echo -e "${BLUE} ${lang[project_permissions_changing]}...${NC}"
@@ -28,6 +33,13 @@ echo -e "${GREEN}### ${lang[project_permissions_changed]} ###${NC}"
 
 cd /var/www/html/TRPanel
 composer install
+npm run dev
+php artisan key:generate
+php artisan migrate
+php artisan db:seed
+php artisan storage:link
+php artisan serve
+
 echo -e "${GREEN}###  ${lang[composer_packages]} ${lang[installed]} ###${NC}"
 
 
