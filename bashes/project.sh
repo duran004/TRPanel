@@ -5,6 +5,10 @@ echo -e "${GREEN}### project_settings.sh ###${NC}"
 echo -e "${YELLOW}### Npm ${lang[installing]} ###${NC}"
 sudo apt install -y npm
 echo -e "${GREEN}### Npm ${lang[installed]} ###${NC}"
+# vite kur
+echo -e "${YELLOW}### Vite ${lang[installing]} ###${NC}"
+npm install -g create-vite
+echo -e "${GREEN}### Vite ${lang[installed]} ###${NC}"
 
 
 echo -e "${YELLOW}### Composer ${lang[installing]} ###${NC}"
