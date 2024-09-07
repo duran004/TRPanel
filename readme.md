@@ -1,5 +1,5 @@
-## Neden?
-Çünkü linux komutlarından nefret ediyorum ve benim gibi nefret edenler vardır. Ve Cpanel artık dolar kuru ile çok pahalı. 
+## Amaç?
+Tek bir kod betiği ile ubuntu-server üzerinde sorunsuz proje yayınlamak.
 
 ## Proje Tamamlanır mı?
 En azından dosya yöneticisi bölümü tamamlanır. 
@@ -13,16 +13,11 @@ sudo /tmp/lamp.sh
 ```
 
 ## Nasıl?
-* komut ile tmp klasörünüze bash dosyası indirilir. (varsa önce silinir)
-* LAMP dediğimiz php apache2 mysql-server git curl paketleri yüklenir.
-* mysql ve php eklentileri yüklenir.
-* apache ve mysql başlatılır.
-* composer yüklenir.
-* proje /var/www/html dizinine klonlanır.
-* projeye gerekli yetkiler verilir ve composer çalıştırılır.
-* ip-adress/TRPanel adresinden yönetim başlar.
+* Bash komutları ile apache2, mysql, phpmyadmin, php paketleri kurulur.
+* TRPanel-Laravel projesi kurulur ve ip-adres:8000 portunda çalıştırılır.
+* Kullanıcı kayıt olur /home/{kullanıcı adı} şeklinde klasörü oluşturulur.
+* (@todo: Bu klasöre Apache yetkileri verilir projesini yayınlaması için.)
 
-(en azından şimdilik hedef bu şekilde.)
 
 ### BETA VERSİONDUR!
 ![önizleme](src/img/github.png)
