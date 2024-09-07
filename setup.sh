@@ -7,10 +7,11 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 BLUE='\033[0;36m'
 NC='\033[0m' # No Color
+WHITE_ON_RED='\033[41;37m'
 log() {
   local date=$(date +"%Y-%m-%d %H:%M:%S")
   local message=$1
-  echo -e "${date} ${message}"
+  echo -e "${WHITE_ON_RED}${date}${NC} ${message}"
 }
 project_folder="/var/www/html/TRPanel/bashes"
 packages="php apache2 mysql-server"
