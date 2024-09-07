@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "### phpmyadmin.sh ###"
+echo -e "${GREEN}### $(figlet -f slant "phpMyAdmin Kurulumu") ###${NC}"
 
 # Kullanıcı adı ve şifreyi ayarla
 read -p "phpMyAdmin kullanıcı adını girin (varsayılan: root): " DB_USER

@@ -10,7 +10,8 @@ NC='\033[0m' # No Color
 project_folder="/var/www/html/TRPanel/bashes"
 packages="php apache2 mysql-server"
 default_language="tr"
-
+sudo apt-get install figlet
+echo -e "${GREEN}### $(figlet -f slant "TRPanel Kurulumu") ###${NC}"
 
 
 # Root kullanıcı olup olmadığını kontrol et
@@ -18,6 +19,7 @@ if [ "$(id -u)" != "0" ]; then
     echo -e "${RED}This script must be run as root.${NC}"
   exit 1
 fi
+
 
 
 # Git'in kurulumunu kontrol et

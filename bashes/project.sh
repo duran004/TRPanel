@@ -1,5 +1,5 @@
 #!/bin/bash
-echo -e "${GREEN}### project_settings.sh ###${NC}"
+echo -e "${GREEN}### $(figlet -f slant "Proje Kurulumu") ###${NC}"
 
 #npm kur
 echo -e "${YELLOW}### Npm ${lang[installing]} ###${NC}"
