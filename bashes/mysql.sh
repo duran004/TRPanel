@@ -1,6 +1,6 @@
 #!/bin/bash
 echo -e "${GREEN}### mysql_settings.sh ###${NC}"
-
+MYSQL_PASS="123456"
 # MySQL tamamen kaldır
 echo -e "${YELLOW}### MySQL tamamen kaldırılıyor... ###${NC}"
 sudo systemctl stop mysql
@@ -28,20 +28,20 @@ fi
 
 # MySQL root parolasını belirle
 if [ ! -f /var/lib/mysql/ibdata1 ]; then
-  echo -e "${BLUE}MySQL root parolasını belirleyin...${NC}"
-  read -sp "MySQL root şifresi: " mysql_root_password
-  echo
-  read -sp "MySQL root şifresi tekrar: " mysql_root_password_repeat
-  echo
+  # echo -e "${BLUE}MySQL root parolasını belirleyin...${NC}"
+  # read -sp "MySQL root şifresi: " mysql_root_password
+  # echo
+  # read -sp "MySQL root şifresi tekrar: " mysql_root_password_repeat
+  # echo
 
-  # Parolaların eşleşip eşleşmediğini kontrol et
-  if [ "$mysql_root_password" != "$mysql_root_password_repeat" ]; then
-    echo -e "${RED}Şifreler eşleşmiyor, lütfen tekrar deneyin.${NC}"
-    exit 1
-  fi
+  # # Parolaların eşleşip eşleşmediğini kontrol et
+  # if [ "$mysql_root_password" != "$mysql_root_password_repeat" ]; then
+  #   echo -e "${RED}Şifreler eşleşmiyor, lütfen tekrar deneyin.${NC}"
+  #   exit 1
+  # fi
 
   # MySQL root parolasını ayarla
-  sudo mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '${mysql_root_password}'; FLUSH PRIVILEGES;"
+  sudo mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '${MYSQL_PASS}'; FLUSH PRIVILEGES;"
 fi
 
 echo -e "${GREEN}### İşlem tamamlandı ###${NC}"
