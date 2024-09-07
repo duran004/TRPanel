@@ -33,6 +33,13 @@ log "${BLUE} ${lang[project_permissions_changing]}...${NC}"
 git config --global --add safe.directory /var/www/html/TRPanelLaravel
 chown -R www-data:www-data TRPanelLaravel
 chmod -R 755 TRPanelLaravel
+
+sudo chown -R $USER:www-data storage
+sudo chown -R $USER:www-data bootstrap/cache
+sudo chmod -R 775 storage
+sudo chmod -R 775 bootstrap/cache
+sudo chown -R $USER:$USER /var/www/html/TRPanelLaravel
+
 # sudo chown www-data:www-data TRPanel/.htaccess
 log "${GREEN}### ${lang[project_permissions_changed]} ###${NC}"
 cd /var/www/html/TRPanelLaravel
@@ -44,7 +51,7 @@ php artisan key:generate
 php artisan migrate
 php artisan db:seed
 php artisan storage:link
-php artisan serve
+php artisan serve --host=0.0.0.0 --port=8000
 
 log "${GREEN}###  ${lang[composer_packages]} ${lang[installed]} ###${NC}"
 
