@@ -1,5 +1,5 @@
 #!/bin/bash
-echo -e "${GREEN}### $(figlet -f slant "Init") ###${NC}"
+echo -e "${GREEN}$(figlet -f slant "Init")${NC}"
 DEBUG_MODE=false
 #debug mode açılsın mı? diye sor
 echo -e "${YELLOW}### ${lang[debug_mode]} ###${NC}"

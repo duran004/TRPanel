@@ -11,7 +11,7 @@ project_folder="/var/www/html/TRPanel/bashes"
 packages="php apache2 mysql-server"
 default_language="tr"
 sudo apt-get install figlet
-echo -e "${GREEN}### $(figlet -f slant "TRPanel Kurulumu") ###${NC}"
+echo -e "${GREEN}$(figlet -f slant "TRPanel Kurulumu")${NC}"
 
 
 # Root kullanıcı olup olmadığını kontrol et

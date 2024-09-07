@@ -1,5 +1,5 @@
 #!/bin/bash
-echo -e "${GREEN}### $(figlet -f slant "Paketler") ###${NC}"
+echo -e "${GREEN}$(figlet -f slant "Paketler")${NC}"
 # Paketleri güncelle
 sudo apt update
 
