@@ -2,8 +2,7 @@
 echo -e "${GREEN} $(figlet -f slant "phpMyAdmin Kurulumu") ${NC}"
 
 # Kullanıcı adı ve şifreyi ayarla
-read -p "phpMyAdmin kullanıcı adını girin (varsayılan: root): " DB_USER
-DB_USER=${DB_USER:-root}  # Kullanıcı adı girilmezse root kullanılır
+read -p "phpMyAdmin kullanıcı adını girin: " DB_USER
 
 # Şifreyi al
 read -sp "phpMyAdmin şifresi: " DB_PASS

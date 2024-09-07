@@ -8,6 +8,7 @@ MYSQL_PASS="123456"
 echo -e "${YELLOW}### MySQL tamamen kaldırılıyor... ###${NC}"
 sudo systemctl stop mysql
 sudo apt-get remove --purge mysql-server mysql-client mysql-common mysql-server-core-* mysql-client-core-* -y
+sudo apt-get remove --purge mysql-\*
 sudo apt-get autoremove -y
 sudo apt-get autoclean
 
@@ -41,9 +42,8 @@ if ! sudo systemctl start mysql; then
 fi
 
 # MySQL root parolasını belirle
-if [ ! -f /var/lib/mysql/ibdata1 ]; then
-  echo -e "${BLUE}### MySQL root parolası ayarlanıyor... ###${NC}"
-  sudo mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '${MYSQL_PASS}'; FLUSH PRIVILEGES;"
-fi
+echo -e "${BLUE}### MySQL root parolası ayarlanıyor... ###${NC}"
+sudo mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '${MYSQL_PASS}'; FLUSH PRIVILEGES;"
+
 
 echo -e "${GREEN}### İşlem tamamlandı ###${NC}"
