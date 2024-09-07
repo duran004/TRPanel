@@ -30,8 +30,9 @@ chown -R www-data:www-data Laravel
 chmod -R 755 Laravel
 # sudo chown www-data:www-data TRPanel/.htaccess
 echo -e "${GREEN}### ${lang[project_permissions_changed]} ###${NC}"
-
 cd /var/www/html/Laravel
+#.env.example dosyasını .env olarak kopyala
+cp .env.example .env
 composer install
 npm run dev
 php artisan key:generate
