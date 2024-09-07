@@ -21,16 +21,16 @@ echo -e "${GREEN}### Composer ${lang[installed]} ###${NC}"
 
 # gitden projey çek /var/www/html dizinine
 cd /var/www/html
-git clone https://github.com/duran004/TRPanel-Laravel.git Laravel
+git clone https://github.com/duran004/TRPanel-Laravel.git TRPanelLaravel
 
 # Proje dizinine yetki ver
 echo -e "${BLUE} ${lang[project_permissions_changing]}...${NC}"
-git config --global --add safe.directory /var/www/html/Laravel
-chown -R www-data:www-data Laravel
-chmod -R 755 Laravel
+git config --global --add safe.directory /var/www/html/TRPanelLaravel
+chown -R www-data:www-data TRPanelLaravel
+chmod -R 755 TRPanelLaravel
 # sudo chown www-data:www-data TRPanel/.htaccess
 echo -e "${GREEN}### ${lang[project_permissions_changed]} ###${NC}"
-cd /var/www/html/Laravel
+cd /var/www/html/TRPanelLaravel
 #.env.example dosyasını .env olarak kopyala
 cp .env.example .env
 composer install
