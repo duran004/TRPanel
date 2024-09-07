@@ -25,13 +25,13 @@ git clone https://github.com/duran004/TRPanel-Laravel.git Laravel
 
 # Proje dizinine yetki ver
 echo -e "${BLUE} ${lang[project_permissions_changing]}...${NC}"
-git config --global --add safe.directory /var/www/html/TRPanel
-chown -R www-data:www-data TRPanel
-chmod -R 755 TRPanel
-sudo chown www-data:www-data TRPanel/.htaccess
+git config --global --add safe.directory /var/www/html/Laravel
+chown -R www-data:www-data Laravel
+chmod -R 755 Laravel
+# sudo chown www-data:www-data TRPanel/.htaccess
 echo -e "${GREEN}### ${lang[project_permissions_changed]} ###${NC}"
 
-cd /var/www/html/TRPanel
+cd /var/www/html/Laravel
 composer install
 npm run dev
 php artisan key:generate
