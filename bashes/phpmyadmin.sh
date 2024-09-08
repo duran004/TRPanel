@@ -35,11 +35,11 @@ log "phpmyadmin phpmyadmin/mysql/app-pass password ${MYSQL_PASS}" | sudo debconf
 sudo apt-get install phpmyadmin -y
 
 # phpMyAdmin'i Apache'e ekle
-if [ ! -f /etc/apache2/conf-available/phpmyadmin.conf ]; then
+# if [ ! -f /etc/apache2/conf-available/phpmyadmin.conf ]; then
     log "Apache yapılandırılıyor..."
     sudo ln -s /etc/phpmyadmin/apache.conf /etc/apache2/conf-available/phpmyadmin.conf
     sudo a2enconf phpmyadmin
-fi
+# fi
 
 # Apache'yi yeniden başlat
 log "Apache yeniden başlatılıyor..."
