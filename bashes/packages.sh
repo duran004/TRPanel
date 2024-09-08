@@ -43,7 +43,7 @@ log "${GREEN}### LAMP ${lang[installed]} ###${NC}"
 # PHP paketlerini yükle
 log "${YELLOW}###  ${lang[php_extensions]} ${lang[installing]} ###${NC}"
 sudo apt-get install libapache2-mod-php8.3 -y
-php_packages="php-mysql php-curl php-gd php-intl php-json php-mbstring php-xml php-zip php8.3-common"
+php_packages="php8.3-common php8.3-fpm php-mysql php-curl php-gd php-intl php-json php-mbstring php-xml php-zip"
 for php_package in $php_packages; do
   sudo apt install -y $php_package
   if ! dpkg -l | grep -q $php_package; then

@@ -14,7 +14,7 @@ log() {
   echo -e "${WHITE_ON_RED}${date}${NC} ${message}"
 }
 project_folder="/var/www/html/TRPanel/bashes"
-packages="php apache2 mysql-server"
+packages="php-fpm apache2 mysql-server"
 default_language="tr"
 sudo apt-get install figlet
 log "${GREEN}$(figlet -f slant "TRPanel Kurulumu")${NC}"
