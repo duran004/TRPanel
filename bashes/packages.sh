@@ -54,4 +54,9 @@ for php_package in $php_packages; do
 done
 log "${GREEN}### ${lang[php_extensions]} ${lang[installed]} ###${NC}"
 
+#/etc/php/8.3/fpm/php.ini dosyasını aç ve disable_functions düzenle
+log "${YELLOW}### ${lang[php_ini]} ${lang[editing]} ###${NC}"
+sudo sed -i 's/;disable_functions =/disable_functions =  = exec,passthru,shell_exec,system,proc_open,popen,curl_exec,curl_multi_exec,parse_ini_file,show_source/g' /etc/php/8.3/fpm/php.ini
+log "${GREEN}### ${lang[php_ini]} ${lang[edited]} ###${NC}"
+
 log "${GREEN}### ${lang[completed]} ###${NC}"
