@@ -59,4 +59,8 @@ log "${YELLOW}### ${lang[php_ini]} ${lang[editing]} ###${NC}"
 sudo sed -i 's/;disable_functions =/disable_functions =  = exec,passthru,shell_exec,system,proc_open,popen,curl_exec,curl_multi_exec,parse_ini_file,show_source/g' /etc/php/8.3/fpm/php.ini
 log "${GREEN}### ${lang[php_ini]} ${lang[edited]} ###${NC}"
 
+sudo apt install libapache2-mod-fcgid
+sudo a2enmod proxy_fcgi setenvif
+
+
 log "${GREEN}### ${lang[completed]} ###${NC}"
