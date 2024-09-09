@@ -25,7 +25,7 @@ done
 
 #curl yükle
 log "${YELLOW}### Curl ${lang[installing]} ###${NC}"
-sudo apt-get install curl
+sudo apt-get install curl -y
 #path ekle
 export PATH=$PATH:/usr/local/bin
 # curl yüklü mü kontrol et
