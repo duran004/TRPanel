@@ -1,53 +1,53 @@
 #!/bin/bash
-log "${GREEN} $(figlet -f slant "Apache2 Kurulumu") ${NC}"
-# Apache2 yükle
-log "${YELLOW}### Apache2 ${lang[installing]} ###${NC}"
-sudo apt-get install apache2 -y
-# Apache2 yüklü mü kontrol et
-if ! dpkg -l | grep -q apache2; then
-  log "${RED}Apache2 ${lang[not_installed]}.${NC}"
-  exit 1
-else
-  log "${GREEN}Apache2 ${lang[installed]}.${NC}"
-fi
-# Apache'nin ayarlarını değiştir
-log "${YELLOW}### Apache ${lang[configuring]} ###${NC}"
-if [ -f /etc/apache2/apache2.conf ]; then
-  sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
-  log "${GREEN}### Apache ${lang[configured]} ###${NC}"
-else
-  log "${RED}### Apache ${lang[not_configured]} ###${NC}"
-  exit 1
-fi
 
-# Apache'nin mod_rewrite modülünü etkinleştir
-log "${YELLOW}### Mod_Rewrite ${lang[enabling]} ###${NC}"
-if a2enmod rewrite; then
-  log "${GREEN}### Mod_Rewrite ${lang[enabled]} ###${NC}"
-else
-  log "${RED}### Mod_Rewrite ${lang[not_enabled]} ###${NC}"
-  exit 1
-fi
+# Apache kurulumunu gerçekleştir
+install_apache() {
+  log "${YELLOW}### Apache kuruluyor ###${NC}"
+  sudo apt-get install apache2 -y
+}
 
-# Apache  servislerini kontrol et
-log "${YELLOW}### Apache ${lang[enabling]} ###${NC}"
-if ! service apache2 status > /dev/null 2>&1; then
-  log "${YELLOW}### Apache ${lang[enabling]} ###${NC}"
-  if ! service apache2 start; then
-    log "${RED}### Apache ${lang[not_enabled]} ###${NC}"
-    exit 1
-  fi
-else
-  log "${GREEN}### Apache ${lang[enabled]} ###${NC}"
-fi
+# Apache yapılandırmasını düzenle
+configure_apache() {
+  log "${YELLOW}### Apache yapılandırması yapılıyor ###${NC}"
+  sudo sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
+  sudo a2enmod rewrite
+}
 
+# VirtualHost oluşturma
+create_virtualhost() {
+  log "${YELLOW}### VirtualHost yapılandırması ###${NC}"
+  echo "<VirtualHost *:80>
+      ServerName $TRPANEL_USER.local
+      DocumentRoot /home/$TRPANEL_USER/public_html
 
-# Apache'yi yeniden başlat
-log "${YELLOW}### Apache ${lang[restarting]} ###${NC}"
-if ! sudo systemctl restart apache2; then
-  log "${RED}### Apache ${lang[not_restarted]} ###${NC}"
-  exit 1
-fi
+      <Directory /home/$TRPANEL_USER/public_html>
+          AllowOverride All
+          Require all granted
+      </Directory>
 
-log "${GREEN}### Apache  ${lang[restarted]} ###${NC}"
-log "${GREEN}### ${lang[completed]} ###${NC}"
+      <FilesMatch \.php$>
+          SetHandler \"proxy:unix:/run/php/php8.3-fpm-$TRPANEL_USER.sock|fcgi://localhost\"
+      </FilesMatch>
+
+      ErrorLog ${APACHE_LOG_DIR}/$TRPANEL_USER_error.log
+      CustomLog ${APACHE_LOG_DIR}/$TRPANEL_USER_access.log combined
+  </VirtualHost>" | sudo tee /etc/apache2/sites-available/$TRPANEL_USER.conf
+
+  sudo a2ensite $TRPANEL_USER.conf
+}
+
+# Apache yeniden başlatma
+restart_apache() {
+  log "${YELLOW}### Apache yeniden başlatılıyor ###${NC}"
+  sudo systemctl restart apache2
+}
+
+# Ana fonksiyon
+main() {
+  install_apache
+  configure_apache
+  create_virtualhost
+  restart_apache
+}
+
+main
