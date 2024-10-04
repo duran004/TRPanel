@@ -1,41 +1,88 @@
 #!/bin/bash
 
-# Projeyi klonla ve dizini hazırla
-clone_project() {
-  log "${YELLOW}### Proje klonlanıyor ###${NC}"
-  git clone https://github.com/duran004/TRPanel-Laravel.git /home/$TRPANEL_USER/public_html/TRPanelLaravel
-  sudo chown -R $TRPANEL_USER:www-data /home/$TRPANEL_USER/public_html/TRPanelLaravel
-  sudo chmod -R 755 /home/$TRPANEL_USER/public_html/TRPanelLaravel
-}
+log "${GREEN} $(figlet -f slant "Proje Kurulumu") ${NC}"
 
-# Composer ve NPM ile bağımlılıkları yükle
+# Proje bağımlılıklarını yükleyen fonksiyon
 install_dependencies() {
-  cd /home/$TRPANEL_USER/public_html/TRPanelLaravel
-  composer install
-  npm install
-  npm run build
+    log "${YELLOW}### Proje bağımlılıkları yükleniyor... ###${NC}"
+
+    cd /home/trpanel/public_html/TRPanelLaravel || { log "${RED}Proje dizini bulunamadı!${NC}"; exit 1; }
+
+    # Composer bağımlılıklarını yükle
+    if ! composer install; then
+        log "${RED}Composer bağımlılıkları yüklenirken hata oluştu!${NC}"
+        exit 1
+    fi
+
+    # NPM bağımlılıklarını yükle
+    if ! npm install; then
+        log "${RED}NPM bağımlılıkları yüklenirken hata oluştu!${NC}"
+        exit 1
+    fi
+
+    # Vite ile build işlemi
+    if ! npm run build; then
+        log "${RED}Vite build işlemi başarısız oldu!${NC}"
+        exit 1
+    fi
+
+    log "${GREEN}### Proje bağımlılıkları başarıyla yüklendi ###${NC}"
 }
 
-# Laravel projeyi yapılandır
+# Laravel Projesini başlatan fonksiyon
 setup_laravel() {
-  cp .env.example .env
-  php artisan key:generate
-  php artisan migrate
-  php artisan db:seed
-  php artisan storage:link
+    log "${YELLOW}### Laravel setup işlemleri yapılıyor... ###${NC}"
+
+    # .env dosyasını oluştur
+    if ! cp .env.example .env; then
+        log "${RED}.env dosyası oluşturulamadı!${NC}"
+        exit 1
+    fi
+
+    # Uygulama anahtarını oluştur
+    if ! php artisan key:generate; then
+        log "${RED}Laravel uygulama anahtarı oluşturulamadı!${NC}"
+        exit 1
+    fi
+
+    # Veritabanı migrasyonlarını çalıştır
+    if ! php artisan migrate; then
+        log "${RED}Veritabanı migrasyonları başarısız!${NC}"
+        exit 1
+    fi
+
+    # Veritabanına seed ekle
+    if ! php artisan db:seed; then
+        log "${RED}Veritabanı seed işlemi başarısız!${NC}"
+        exit 1
+    fi
+
+    # Storage link oluştur
+    if ! php artisan storage:link; then
+        log "${RED}Storage link oluşturulamadı!${NC}"
+        exit 1
+    fi
+
+    log "${GREEN}### Laravel setup işlemleri tamamlandı ###${NC}"
 }
 
-# Laravel projesini çalıştır
+# Laravel Sunucusunu başlatan fonksiyon
 start_laravel_server() {
-  php artisan serve --host=0.0.0.0 --port=8000
+    log "${YELLOW}### Laravel sunucusu başlatılıyor... ###${NC}"
+
+    if ! php artisan serve --host=0.0.0.0 --port=8000; then
+        log "${RED}Laravel sunucusu başlatılamadı!${NC}"
+        exit 1
+    fi
+
+    log "${GREEN}### Laravel sunucusu başarıyla başlatıldı ###${NC}"
 }
 
-# Ana fonksiyon
+# Ana fonksiyon (Main)
 main() {
-  clone_project
-  install_dependencies
-  setup_laravel
-  start_laravel_server
+    install_dependencies         # Bağımlılıkları yükler
+    setup_laravel                # Laravel setup işlemlerini yapar
+    start_laravel_server         # Laravel sunucusunu başlatır
 }
 
-main
+main  # Main fonksiyonunu çağır
