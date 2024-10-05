@@ -29,7 +29,6 @@ optimize_mysql_config() {
 [mysqld]
 max_connections = 100
 innodb_buffer_pool_size = 512M
-query_cache_size = 64M
 key_buffer_size = 16M
 EOF
 
