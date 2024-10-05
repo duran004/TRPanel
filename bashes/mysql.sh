@@ -22,6 +22,29 @@ install_mysql() {
   sudo apt-get update
   sudo apt-get install mysql-server mysql-client -y
 }
+optimize_mysql_config() {
+  log "${YELLOW}### MySQL yapılandırması optimize ediliyor... ###${NC}"
+
+  sudo bash -c 'cat > /etc/mysql/my.cnf' << EOF
+[mysqld]
+max_connections = 100
+innodb_buffer_pool_size = 512M
+query_cache_size = 64M
+key_buffer_size = 16M
+EOF
+
+  log "${GREEN}### MySQL yapılandırması optimize edildi ###${NC}"
+}
+
+# MySQL servisini yeniden başlatan fonksiyon
+restart_mysql_service() {
+  log "${YELLOW}### MySQL servisi yeniden başlatılıyor... ###${NC}"
+  sudo systemctl restart mysql
+  if [ $? -ne 0 ]; then
+    log "${RED}### MySQL servisi yeniden başlatılamadı ###${NC}"
+    exit 1
+  fi
+}
 
 # MySQL servisini başlatan fonksiyon
 start_mysql_service() {
@@ -44,8 +67,10 @@ main() {
   log "${GREEN} $(figlet -f slant "MySQL Kurulumu") ${NC}"
   purge_mysql
   install_mysql
+  optimize_mysql_config
   start_mysql_service
   set_mysql_root_password
+  restart_mysql_service
   log "${GREEN}### MySQL kurulumu tamamlandı ###${NC}"
 }
 
