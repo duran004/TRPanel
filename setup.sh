@@ -99,6 +99,7 @@ main() {
   choose_language         # Dil seçimi
   install_lamp_stack       # LAMP kurulumu (isteğe bağlı)
   install_trpanel_project  # TRPanel Laravel projesi kurulumu
+  source "$project_folder/apache_virtualhost_and_phpfpm_setup.sh"
 }
 
 main
