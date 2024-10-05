@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 MYSQL_USER="root"
 MYSQL_PASS="123456"
 
@@ -17,9 +16,13 @@ purge_phpmyadmin() {
 install_phpmyadmin() {
   log "phpMyAdmin yeniden yükleniyor..."
   sudo apt-get update
+
+  # Apache'yi seçerek kurulumu otomatikleştiriyoruz
+  echo "phpmyadmin phpmyadmin/reconfigure-webserver multiselect apache2" | sudo debconf-set-selections
   echo "phpmyadmin phpmyadmin/dbconfig-install boolean true" | sudo debconf-set-selections
   echo "phpmyadmin phpmyadmin/mysql/admin-pass password ${MYSQL_PASS}" | sudo debconf-set-selections
   echo "phpmyadmin phpmyadmin/mysql/app-pass password ${MYSQL_PASS}" | sudo debconf-set-selections
+
   sudo apt-get install phpmyadmin -y
 }
 
