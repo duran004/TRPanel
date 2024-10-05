@@ -63,28 +63,35 @@ choose_language() {
   log "${BLUE}Dil seçin / Choose language (tr/en):${NC}"
   read language
   if [ "$language" == "en" ]; then
-    source "$project_folder/lang/en.sh"
+    install "lang/en.sh"
   else
-    source "$project_folder/lang/tr.sh"
+    install "lang/tr.sh"
   fi
 }
 
-# LAMP kurulumu
+# Install fonksiyonu
+install() {
+  local script_name=$1
+  if [ -f "$project_folder/$script_name" ]; then
+    source "$project_folder/$script_name"
+    log "${GREEN}$script_name yüklendi.${NC}"
+  else
+    log "${RED}$script_name bulunamadı.${NC}"
+    exit 1
+  fi
+}
+
+# LAMP kurulum fonksiyonu
 install_lamp_stack() {
   log "${YELLOW}LAMP kurulumunu atlamak ister misiniz?${NC}"
   read -p "y/n: " skip_lamp
-  source "$project_folder/init.sh"
+  install "init.sh"
   if [ "$skip_lamp" == "n" ]; then
-    source "$project_folder/apache.sh"
-    source "$project_folder/packages.sh"   # Burada Composer ve NPM yükleniyor
-    source "$project_folder/mysql.sh"
-    source "$project_folder/phpmyadmin.sh"
+    install "apache.sh"
+    install "packages.sh"
+    install "mysql.sh"
+    install "phpmyadmin.sh"
   fi
-}
-
-# Laravel proje kurulumu
-install_trpanel_project() {
-  source "$project_folder/project.sh"  # Proje kurulumu ve Laravel setup burada yapılıyor
 }
 
 # Main fonksiyonu
@@ -97,8 +104,8 @@ main() {
   setup_project_directory # Proje dizini oluşturma ve klonlama
   choose_language         # Dil seçimi
   install_lamp_stack       # LAMP kurulumu (isteğe bağlı)
-  install_trpanel_project  # TRPanel Laravel projesi kurulumu
-  source "$project_folder/apache_virtualhost_and_phpfpm_setup.sh"
+  install "apache_virtualhost_and_phpfpm_setup.sh"  # Apache VirtualHost ve PHP-FPM kurulumu
+  install "project.sh"     # TRPanel Laravel projesi kurulumu
 }
 
 main
