@@ -76,7 +76,6 @@ install_lamp_stack() {
   source "$project_folder/init.sh"
   if [ "$skip_lamp" == "n" ]; then
     source "$project_folder/apache.sh"
-    source "$project_folder/php.sh"
     source "$project_folder/packages.sh"   # Burada Composer ve NPM yükleniyor
     source "$project_folder/mysql.sh"
     source "$project_folder/phpmyadmin.sh"
