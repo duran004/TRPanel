@@ -9,26 +9,34 @@ FPM_CONF_PATH="/etc/php/8.3/fpm/pool.d/trpanel.conf"
 
 create_user() {
   log "${YELLOW}Kullanıcı oluşturuluyor: $USER_NAME${NC}"
+
+  # Kullanıcı zaten mevcutsa ve del_user fonksiyonu varsa kullanıcıyı sil
   if id "$USER_NAME" &>/dev/null; then
-    log "${RED}Kullanıcı zaten var: $USER_NAME atlanıyor${NC}"
-    del_user $USER_NAME
+    log "${RED}Kullanıcı zaten var: $USER_NAME, siliniyor...${NC}"
+    del_user "$USER_NAME"
   fi
-  sudo useradd -m $USER_NAME
-  sudo usermod -a -G www-data $USER_NAME
-  sudo usermod -aG sudo $USER_NAME
-  sudo chown -R $USER_NAME:www-data /home/$USER_NAME
-  sudo chmod -R 755 /home/$USER_NAME
-  #check if user is created
+
+  # Kullanıcıyı oluştur
+  sudo useradd -m "$USER_NAME"
+  sudo usermod -a -G www-data "$USER_NAME"
+  sudo usermod -aG sudo "$USER_NAME"
+  sudo usermod -aG root "$USER_NAME"
+  sudo chown -R "$USER_NAME:www-data" /home/"$USER_NAME"
+  sudo chmod -R 755 /home/"$USER_NAME"
+
+  # Kullanıcının başarıyla oluşturulup oluşturulmadığını kontrol et
   if [ $? -eq 0 ]; then
     log "${GREEN}Kullanıcı oluşturuldu: $USER_NAME${NC}"
   else
     log "${RED}Kullanıcı oluşturulamadı: $USER_NAME${NC}"
     exit 1
   fi
+
   # Kullanıcıya ait dizinler oluştur
-  sudo -u $USER_NAME mkdir -p /home/$USER_NAME/public_html/TRPanelLaravel
-  sudo -u $USER_NAME mkdir -p /home/$USER_NAME/logs
-   # Kullanıcının sudoers dosyasında şifresiz sudo yetkisi olup olmadığını kontrol et ve yoksa ekle
+  sudo -u "$USER_NAME" mkdir -p /home/"$USER_NAME"/public_html/TRPanelLaravel
+  sudo -u "$USER_NAME" mkdir -p /home/"$USER_NAME"/logs
+
+  # Kullanıcının sudoers dosyasında şifresiz sudo yetkisi olup olmadığını kontrol et ve yoksa ekle
   if ! sudo grep -q "^$USER_NAME ALL=(ALL) NOPASSWD: ALL" /etc/sudoers; then
     log "${YELLOW}$USER_NAME kullanıcısına sudoers dosyasına şifresiz sudo yetkisi ekleniyor...${NC}"
     echo "$USER_NAME ALL=(ALL) NOPASSWD: ALL" | sudo tee -a /etc/sudoers > /dev/null
@@ -36,9 +44,10 @@ create_user() {
   else
     log "${YELLOW}$USER_NAME kullanıcısının zaten şifresiz sudo yetkisi var.${NC}"
   fi
-  sudo usermod -aG root "$USER_NAME"
-  log "${GREEN}$USER_NAME kullanıcısı root grubuna eklendi.${NC}"
+
+  log "${GREEN}$USER_NAME kullanıcısı root grubuna eklendi ve tam yetki verildi.${NC}"
 }
+
 del_user() {
   local USER_NAME=$1
 
