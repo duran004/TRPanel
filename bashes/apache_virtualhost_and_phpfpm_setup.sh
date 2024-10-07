@@ -5,7 +5,7 @@ SERVER_NAME="trpanel.local"
 USER_NAME="trpanel"
 FPM_SOCK_PATH="/run/php/php8.3-fpm.trpanel.sock"  # PHP-FPM socket yolu
 DOCUMENT_ROOT="/home/trpanel/public_html/TRPanelLaravel/public"
-
+FPM_CONF_PATH="/etc/php/8.3/fpm/pool.d/trpanel.conf"
 
 
 # Virtual host yapılandırma dosyasını oluştur
@@ -95,8 +95,12 @@ php_admin_value[error_log] = /home/trpanel/logs/php-error.log
 php_admin_value[disable_functions] = exec,passthru,shell_exec,system
 php_admin_flag[log_errors] = on
 EOF
-
-  log "${GREEN}PHP-FPM havuzu oluşturuldu: $FPM_CONF_PATH${NC}"
+  if [ $? -eq 0 ]; then
+    log "${GREEN}PHP-FPM havuzu oluşturuldu: $FPM_CONF_PATH${NC}"
+  else
+    log "${RED}PHP-FPM havuzu oluşturulamadı: $FPM_CONF_PATH${NC}"
+    exit 1
+  fi
 }
 
 # PHP-FPM servisini yeniden başlat
