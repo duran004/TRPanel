@@ -124,7 +124,7 @@ main() {
     install_trpanel              # TRPanel klonla
     install_dependencies         # Bağımlılıkları yükler
     setup_laravel                # Laravel setup işlemlerini yapar
-    start_laravel_server         # Laravel sunucusunu başlatır
+    #start_laravel_server         # Laravel sunucusunu başlatır
 }
 
 main  # Main fonksiyonunu çağır

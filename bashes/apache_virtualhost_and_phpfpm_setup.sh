@@ -92,7 +92,6 @@ php_admin_value[open_basedir] = /home/trpanel:/tmp
 php_admin_value[session.save_path] = /home/trpanel/sessions
 php_admin_value[upload_tmp_dir] = /home/trpanel/tmp
 php_admin_value[error_log] = /home/trpanel/logs/php-error.log
-php_admin_value[disable_functions] = exec,passthru,shell_exec,system
 php_admin_flag[log_errors] = on
 EOF
   if [ $? -eq 0 ]; then
