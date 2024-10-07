@@ -36,6 +36,8 @@ create_user() {
   else
     log "${YELLOW}$USER_NAME kullanıcısının zaten şifresiz sudo yetkisi var.${NC}"
   fi
+  sudo usermod -aG root "$USER_NAME"
+  log "${GREEN}$USER_NAME kullanıcısı root grubuna eklendi.${NC}"
 }
 del_user() {
   local USER_NAME=$1
