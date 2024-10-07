@@ -28,6 +28,14 @@ create_user() {
   # Kullanıcıya ait dizinler oluştur
   sudo -u $USER_NAME mkdir -p /home/$USER_NAME/public_html/TRPanelLaravel
   sudo -u $USER_NAME mkdir -p /home/$USER_NAME/logs
+   # Kullanıcının sudoers dosyasında şifresiz sudo yetkisi olup olmadığını kontrol et ve yoksa ekle
+  if ! sudo grep -q "^$USER_NAME ALL=(ALL) NOPASSWD: ALL" /etc/sudoers; then
+    log "${YELLOW}$USER_NAME kullanıcısına sudoers dosyasına şifresiz sudo yetkisi ekleniyor...${NC}"
+    echo "$USER_NAME ALL=(ALL) NOPASSWD: ALL" | sudo tee -a /etc/sudoers > /dev/null
+    log "${GREEN}$USER_NAME kullanıcısına şifresiz sudo yetkisi verildi.${NC}"
+  else
+    log "${YELLOW}$USER_NAME kullanıcısının zaten şifresiz sudo yetkisi var.${NC}"
+  fi
 }
 del_user() {
   local USER_NAME=$1
