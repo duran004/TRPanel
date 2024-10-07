@@ -2,8 +2,11 @@
 VHOST_CONF_PATH="/etc/apache2/sites-available/trpanel.local.conf"
 HOSTS_FILE="/etc/hosts"
 SERVER_NAME="trpanel.local"
+USER_NAME="trpanel"
 FPM_SOCK_PATH="/run/php/php8.3-fpm.trpanel.sock"  # PHP-FPM socket yolu
 DOCUMENT_ROOT="/home/trpanel/public_html/TRPanelLaravel/public"
+
+
 
 # Virtual host yapılandırma dosyasını oluştur
 create_virtualhost() {
