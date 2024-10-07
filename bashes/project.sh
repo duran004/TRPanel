@@ -3,6 +3,16 @@
 log "${GREEN} $(figlet -f slant "Proje Kurulumu") ${NC}"
 create_user() {
   log "${YELLOW}Kullanıcı oluşturuluyor: $USER_NAME${NC}"
+  if id "$USER_NAME" &>/dev/null; then
+    log "${RED}Kullanıcı zaten var: $USER_NAME siliniyor${NC}"
+    sudo userdel -r $USER_NAME
+    if [ $? -eq 0 ]; then
+      log "${GREEN}Kullanıcı silindi: $USER_NAME${NC}"
+    else
+      log "${RED}Kullanıcı silinemedi: $USER_NAME${NC}"
+      exit 1
+    fi
+  fi
   sudo useradd -m $USER_NAME
   sudo usermod -a -G www-data $USER_NAME
   sudo chown -R $USER_NAME:www-data /home/$USER_NAME
@@ -20,6 +30,16 @@ create_user() {
 }
 install_trpanel() {
   log "${YELLOW}TRPanel klonlanıyor...${NC}"
+  if [ -d "/home/$USER_NAME/public_html/TRPanelLaravel" ]; then
+    log "${RED}TRPanel zaten var: /home/$USER_NAME/public_html/TRPanelLaravel siliniyor${NC}"
+    sudo rm -rf /home/$USER_NAME/public_html/TRPanelLaravel
+    if [ $? -eq 0 ]; then
+      log "${GREEN}TRPanel başarıyla silindi.${NC}"
+    else
+      log "${RED}TRPanel silinemedi.${NC}"
+      exit 1
+    fi
+  fi
   sudo -u $USER_NAME git clone https://github.com/duran004/TRPanel-Laravel.git /home/$USER_NAME/public_html/TRPanelLaravel
     if [ $? -eq 0 ]; then
         log "${GREEN}TRPanel başarıyla klonlandı.${NC}"
