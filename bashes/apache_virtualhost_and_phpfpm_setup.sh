@@ -150,7 +150,6 @@ pm.max_children = 5
 pm.start_servers = 2
 pm.min_spare_servers = 1
 pm.max_spare_servers = 3
-php_admin_value[open_basedir] = /home/trpanel:/tmp
 php_admin_value[session.save_path] = /home/trpanel/sessions
 php_admin_value[upload_tmp_dir] = /home/trpanel/tmp
 php_admin_value[error_log] = /home/trpanel/logs/php-error.log
