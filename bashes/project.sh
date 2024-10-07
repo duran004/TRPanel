@@ -4,14 +4,8 @@ log "${GREEN} $(figlet -f slant "Proje Kurulumu") ${NC}"
 create_user() {
   log "${YELLOW}Kullanıcı oluşturuluyor: $USER_NAME${NC}"
   if id "$USER_NAME" &>/dev/null; then
-    log "${RED}Kullanıcı zaten var: $USER_NAME siliniyor${NC}"
-    sudo userdel -r $USER_NAME
-    if [ $? -eq 0 ]; then
-      log "${GREEN}Kullanıcı silindi: $USER_NAME${NC}"
-    else
-      log "${RED}Kullanıcı silinemedi: $USER_NAME${NC}"
-      exit 1
-    fi
+    log "${RED}Kullanıcı zaten var: $USER_NAME atlanıyor${NC}"
+    return 0
   fi
   sudo useradd -m $USER_NAME
   sudo usermod -a -G www-data $USER_NAME
