@@ -7,7 +7,61 @@ FPM_SOCK_PATH="/run/php/php8.3-fpm.trpanel.sock"  # PHP-FPM socket yolu
 DOCUMENT_ROOT="/home/trpanel/public_html/TRPanelLaravel/public"
 FPM_CONF_PATH="/etc/php/8.3/fpm/pool.d/trpanel.conf"
 
+create_user() {
+  log "${YELLOW}Kullanıcı oluşturuluyor: $USER_NAME${NC}"
+  if id "$USER_NAME" &>/dev/null; then
+    log "${RED}Kullanıcı zaten var: $USER_NAME atlanıyor${NC}"
+    del_user $USER_NAME
+  fi
+  sudo useradd -m $USER_NAME
+  sudo usermod -a -G www-data $USER_NAME
+  sudo usermod -aG sudo $USER_NAME
+  sudo chown -R $USER_NAME:www-data /home/$USER_NAME
+  sudo chmod -R 755 /home/$USER_NAME
+  #check if user is created
+  if [ $? -eq 0 ]; then
+    log "${GREEN}Kullanıcı oluşturuldu: $USER_NAME${NC}"
+  else
+    log "${RED}Kullanıcı oluşturulamadı: $USER_NAME${NC}"
+    exit 1
+  fi
+  # Kullanıcıya ait dizinler oluştur
+  sudo -u $USER_NAME mkdir -p /home/$USER_NAME/public_html/TRPanelLaravel
+  sudo -u $USER_NAME mkdir -p /home/$USER_NAME/logs
+}
+del_user() {
+  local USER_NAME=$1
 
+  # Kullanıcının sistemde olup olmadığını kontrol et
+  if id "$USER_NAME" &>/dev/null; then
+    echo -e "${YELLOW}$USER_NAME kullanıcısı siliniyor...${NC}"
+    
+    # PHP-FPM havuz dosyasını sil
+    local FPM_POOL_FILE="/etc/php/8.3/fpm/pool.d/${USER_NAME}.conf"
+    if [ -f "$FPM_POOL_FILE" ]; then
+      echo -e "${YELLOW}PHP-FPM havuz dosyası siliniyor: $FPM_POOL_FILE${NC}"
+      sudo rm -f "$FPM_POOL_FILE"
+    else
+      echo -e "${YELLOW}PHP-FPM havuz dosyası bulunamadı: $FPM_POOL_FILE${NC}"
+    fi
+
+    # PHP-FPM servisini yeniden başlat
+    echo -e "${YELLOW}PHP-FPM servisi yeniden başlatılıyor...${NC}"
+    sudo systemctl restart php8.3-fpm
+
+    # Kullanıcıyı ve ev dizinini sil
+    echo -e "${YELLOW}Kullanıcı ve ev dizini siliniyor: $USER_NAME${NC}"
+    sudo deluser --remove-home "$USER_NAME"
+
+    # Kullanıcı grubunu sil
+    echo -e "${YELLOW}Kullanıcı grubu siliniyor: $USER_NAME${NC}"
+    sudo delgroup "$USER_NAME"
+
+    echo -e "${GREEN}$USER_NAME kullanıcısı ve ilgili dosyalar başarıyla silindi.${NC}"
+  else
+    echo -e "${RED}$USER_NAME kullanıcısı bulunamadı.${NC}"
+  fi
+}
 # Virtual host yapılandırma dosyasını oluştur
 create_virtualhost() {
   log "${YELLOW}Virtual host dosyası PHP-FPM ile oluşturuluyor...${NC}"
@@ -115,6 +169,7 @@ restart_php_fpm() {
   fi
 }
 main() {
+  create_user
   create_virtualhost
   update_hosts_file
   enable_virtualhost
