@@ -11,12 +11,10 @@ create_user() {
   log "${YELLOW}Kullanıcı oluşturuluyor: $USER_NAME${NC}"
   # daha önce yüklendiyse php-fpm servisini durdur çalışan süreçleri sonlandır
   sudo systemctl stop php8.3-fpm
+  sudo systemctl stop apache2
 
-  # Kullanıcı zaten mevcutsa ve del_user fonksiyonu varsa kullanıcıyı sil
-  if id "$USER_NAME" &>/dev/null; then
-    log "${RED}Kullanıcı zaten var: $USER_NAME, siliniyor...${NC}"
-    del_user "$USER_NAME"
-  fi
+  # kullanıcıyı sil
+  del_user "$USER_NAME"
 
   # Kullanıcıyı oluştur
   sudo useradd -m "$USER_NAME"
@@ -52,40 +50,35 @@ create_user() {
 
 del_user() {
   local USER_NAME=$1
-
   # Kullanıcının sistemde olup olmadığını kontrol et
-  if id "$USER_NAME" &>/dev/null; then
-    echo -e "${YELLOW}$USER_NAME kullanıcısı siliniyor...${NC}"
+  echo -e "${YELLOW}$USER_NAME kullanıcısı siliniyor...${NC}"
 
-    # Kullanıcıya ait tüm süreçleri sonlandır
-    echo -e "${YELLOW}Kullanıcıya ait süreçler sonlandırılıyor: $USER_NAME${NC}"
-    sudo pkill -u "$USER_NAME"
+  # Kullanıcıya ait tüm süreçleri sonlandır
+  echo -e "${YELLOW}Kullanıcıya ait süreçler sonlandırılıyor: $USER_NAME${NC}"
+  sudo pkill -u "$USER_NAME"
 
-    # PHP-FPM havuz dosyasını sil
-    local FPM_POOL_FILE="/etc/php/8.3/fpm/pool.d/${USER_NAME}.conf"
-    if [ -f "$FPM_POOL_FILE" ]; then
-      echo -e "${YELLOW}PHP-FPM havuz dosyası siliniyor: $FPM_POOL_FILE${NC}"
-      sudo rm -f "$FPM_POOL_FILE"
-    else
-      echo -e "${YELLOW}PHP-FPM havuz dosyası bulunamadı: $FPM_POOL_FILE${NC}"
-    fi
-
-    # PHP-FPM servisini yeniden başlat
-    echo -e "${YELLOW}PHP-FPM servisi yeniden başlatılıyor...${NC}"
-    sudo systemctl restart php8.3-fpm
-
-    # Kullanıcıyı ve ev dizinini sil
-    echo -e "${YELLOW}Kullanıcı ve ev dizini siliniyor: $USER_NAME${NC}"
-    sudo deluser --remove-home "$USER_NAME"
-
-    # Kullanıcı grubunu sil
-    echo -e "${YELLOW}Kullanıcı grubu siliniyor: $USER_NAME${NC}"
-    sudo delgroup "$USER_NAME"
-
-    echo -e "${GREEN}$USER_NAME kullanıcısı ve ilgili dosyalar başarıyla silindi.${NC}"
+  # PHP-FPM havuz dosyasını sil
+  local FPM_POOL_FILE="/etc/php/8.3/fpm/pool.d/${USER_NAME}.conf"
+  if [ -f "$FPM_POOL_FILE" ]; then
+    echo -e "${YELLOW}PHP-FPM havuz dosyası siliniyor: $FPM_POOL_FILE${NC}"
+    sudo rm -f "$FPM_POOL_FILE"
   else
-    echo -e "${RED}$USER_NAME kullanıcısı bulunamadı.${NC}"
+    echo -e "${YELLOW}PHP-FPM havuz dosyası bulunamadı: $FPM_POOL_FILE${NC}"
   fi
+
+  # PHP-FPM servisini yeniden başlat
+  echo -e "${YELLOW}PHP-FPM servisi yeniden başlatılıyor...${NC}"
+  sudo systemctl restart php8.3-fpm
+
+  # Kullanıcıyı ve ev dizinini sil
+  echo -e "${YELLOW}Kullanıcı ve ev dizini siliniyor: $USER_NAME${NC}"
+  sudo deluser --remove-home "$USER_NAME"
+
+  # Kullanıcı grubunu sil
+  echo -e "${YELLOW}Kullanıcı grubu siliniyor: $USER_NAME${NC}"
+  sudo delgroup "$USER_NAME"
+
+  echo -e "${GREEN}$USER_NAME kullanıcısı ve ilgili dosyalar başarıyla silindi.${NC}"
 }
 
 # Virtual host yapılandırma dosyasını oluştur
