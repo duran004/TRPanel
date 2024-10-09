@@ -29,19 +29,19 @@ install_dependencies() {
     cd /home/trpanel/public_html/TRPanelLaravel || { log "${RED}Proje dizini bulunamadı!${NC}"; exit 1; }
 
     # Composer bağımlılıklarını yükle
-    if ! composer install; then
+    if ! composer install -y; then
         log "${RED}Composer bağımlılıkları yüklenirken hata oluştu!${NC}"
         exit 1
     fi
 
     # NPM bağımlılıklarını yükle
-    if ! npm install; then
+    if ! npm install -y; then
         log "${RED}NPM bağımlılıkları yüklenirken hata oluştu!${NC}"
         exit 1
     fi
 
     # Vite ile build işlemi
-    if ! npm run build; then
+    if ! npm run build -y; then
         log "${RED}Vite build işlemi başarısız oldu!${NC}"
         exit 1
     fi
