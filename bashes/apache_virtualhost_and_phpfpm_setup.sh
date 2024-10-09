@@ -50,12 +50,19 @@ create_user() {
 
 del_user() {
   local USER_NAME=$1
-  # Kullanıcının sistemde olup olmadığını kontrol et
   echo -e "${YELLOW}$USER_NAME kullanıcısı siliniyor...${NC}"
 
-  # Kullanıcıya ait tüm süreçleri sonlandır
-  echo -e "${YELLOW}Kullanıcıya ait süreçler sonlandırılıyor: $USER_NAME${NC}"
-  sudo pkill -u "$USER_NAME"
+  # Kullanıcıya ait tüm süreçleri zorla sonlandır
+  echo -e "${YELLOW}Kullanıcıya ait süreçler zorla sonlandırılıyor: $USER_NAME${NC}"
+  sudo pkill -9 -u "$USER_NAME"
+
+  # Hala çalışan süreç olup olmadığını kontrol et
+  if ps -u "$USER_NAME" > /dev/null 2>&1; then
+    echo -e "${RED}$USER_NAME kullanıcısına ait süreçler hala çalışıyor. Tekrar sonlandırılıyor...${NC}"
+    sudo kill -9 $(ps -u "$USER_NAME" -o pid=)
+  else
+    echo -e "${GREEN}$USER_NAME kullanıcısına ait tüm süreçler başarıyla sonlandırıldı.${NC}"
+  fi
 
   # PHP-FPM havuz dosyasını sil
   local FPM_POOL_FILE="/etc/php/8.3/fpm/pool.d/${USER_NAME}.conf"
@@ -66,9 +73,7 @@ del_user() {
     echo -e "${YELLOW}PHP-FPM havuz dosyası bulunamadı: $FPM_POOL_FILE${NC}"
   fi
 
-  # PHP-FPM servisini yeniden başlat
-  echo -e "${YELLOW}PHP-FPM servisi yeniden başlatılıyor...${NC}"
-  sudo systemctl restart php8.3-fpm
+
 
   # Kullanıcıyı ve ev dizinini sil
   echo -e "${YELLOW}Kullanıcı ve ev dizini siliniyor: $USER_NAME${NC}"
@@ -78,8 +83,13 @@ del_user() {
   echo -e "${YELLOW}Kullanıcı grubu siliniyor: $USER_NAME${NC}"
   sudo delgroup "$USER_NAME"
 
+  # Kullanıcıya ait kalıntı dosyaları ve günlükleri temizle
+  echo -e "${YELLOW}Kullanıcıya ait kalıntı dosyaları temizleniyor...${NC}"
+  sudo find / -user "$USER_NAME" -exec sudo rm -rf {} \; 2>/dev/null
+
   echo -e "${GREEN}$USER_NAME kullanıcısı ve ilgili dosyalar başarıyla silindi.${NC}"
 }
+
 
 # Virtual host yapılandırma dosyasını oluştur
 create_virtualhost() {
