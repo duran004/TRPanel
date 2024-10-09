@@ -54,7 +54,11 @@ del_user() {
   # Kullanıcının sistemde olup olmadığını kontrol et
   if id "$USER_NAME" &>/dev/null; then
     echo -e "${YELLOW}$USER_NAME kullanıcısı siliniyor...${NC}"
-    
+
+    # Kullanıcıya ait tüm süreçleri sonlandır
+    echo -e "${YELLOW}Kullanıcıya ait süreçler sonlandırılıyor: $USER_NAME${NC}"
+    sudo pkill -u "$USER_NAME"
+
     # PHP-FPM havuz dosyasını sil
     local FPM_POOL_FILE="/etc/php/8.3/fpm/pool.d/${USER_NAME}.conf"
     if [ -f "$FPM_POOL_FILE" ]; then
@@ -81,6 +85,7 @@ del_user() {
     echo -e "${RED}$USER_NAME kullanıcısı bulunamadı.${NC}"
   fi
 }
+
 # Virtual host yapılandırma dosyasını oluştur
 create_virtualhost() {
   log "${YELLOW}Virtual host dosyası PHP-FPM ile oluşturuluyor...${NC}"
