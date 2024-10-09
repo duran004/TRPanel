@@ -9,6 +9,7 @@ FPM_CONF_PATH="/etc/php/8.3/fpm/pool.d/trpanel.conf"
 
 create_user() {
   log "${YELLOW}Kullanıcı oluşturuluyor: $USER_NAME${NC}"
+  sudo systemctl stop php8.3-fpm
 
   # Kullanıcı zaten mevcutsa ve del_user fonksiyonu varsa kullanıcıyı sil
   if id "$USER_NAME" &>/dev/null; then
