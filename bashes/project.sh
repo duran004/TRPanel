@@ -25,11 +25,10 @@ install_trpanel() {
 # Proje bağımlılıklarını yükleyen fonksiyon
 install_dependencies() {
     log "${YELLOW}### Proje bağımlılıkları yükleniyor... ###${NC}"
-    sudo -u $USER_NAME
     cd /home/trpanel/public_html/TRPanelLaravel || { log "${RED}Proje dizini bulunamadı!${NC}"; exit 1; }
 
     # Composer bağımlılıklarını yükle
-    if ! composer install -y; then
+    if ! composer install --no-interaction; then
         log "${RED}Composer bağımlılıkları yüklenirken hata oluştu!${NC}"
         exit 1
     fi
