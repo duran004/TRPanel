@@ -24,6 +24,7 @@ install_phpmyadmin() {
   echo "phpmyadmin phpmyadmin/mysql/app-pass password ${MYSQL_PASS}" | sudo debconf-set-selections
 
   sudo apt-get install phpmyadmin -y
+  sudo apt install libapache2-mod-php -y
 }
 
 # phpMyAdmin'i Apache'ye bağlayan fonksiyon
