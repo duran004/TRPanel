@@ -23,6 +23,7 @@ create_user() {
   sudo usermod -aG root "$USER_NAME"
   sudo chown -R "$USER_NAME:www-data" /home/"$USER_NAME"
   sudo chmod -R 755 /home/"$USER_NAME"
+  echo "$USER_NAME:your_password_here" | sudo chpasswd
 
   # Kullanıcının başarıyla oluşturulup oluşturulmadığını kontrol et
   if [ $? -eq 0 ]; then
