@@ -3,6 +3,7 @@ VHOST_CONF_PATH="/etc/apache2/sites-available/trpanel.local.conf"
 HOSTS_FILE="/etc/hosts"
 SERVER_NAME="trpanel.local"
 USER_NAME="trpanel"
+USER_PASS="123"
 FPM_SOCK_PATH="/run/php/php8.3-fpm.trpanel.sock"  # PHP-FPM socket yolu
 DOCUMENT_ROOT="/home/trpanel/public_html/TRPanelLaravel/public"
 FPM_CONF_PATH="/etc/php/8.3/fpm/pool.d/trpanel.conf"
@@ -23,7 +24,7 @@ create_user() {
   sudo usermod -aG root "$USER_NAME"
   sudo chown -R "$USER_NAME:www-data" /home/"$USER_NAME"
   sudo chmod -R 755 /home/"$USER_NAME"
-  echo "$USER_NAME:your_password_here" | sudo chpasswd
+  echo "$USER_NAME:$USER_PASS" | sudo chpasswd
 
   # Kullanıcının başarıyla oluşturulup oluşturulmadığını kontrol et
   if [ $? -eq 0 ]; then
