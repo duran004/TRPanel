@@ -196,12 +196,22 @@ restart_php_fpm() {
     exit 1
   fi
 }
+user_permission() {
+  #$USER_NAME /etc/php/8.3/ içindeki tüm klasörlere yetki ver
+  sudo chown -R "$USER_NAME:www-data" /etc/php/8.3/
+  sudo chmod -R "$USER_NAME:www-data" /home/"$USER_NAME"
+  sudo a2enmod proxy_fcgi setenvif
+  sudo a2enmod rewrite
+  sudo systemctl restart apache2
+
+}
 main() {
   create_user
   create_virtualhost
   update_hosts_file
   enable_virtualhost
   create_php_fpm_pool
+  user_permission
   restart_php_fpm
   restart_apache
 
