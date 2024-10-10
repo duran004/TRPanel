@@ -199,8 +199,8 @@ restart_php_fpm() {
 user_permission() {
   #$USER_NAME /etc/php/8.3/ içindeki tüm klasörlere yetki ver
   sudo chown -R "$USER_NAME:www-data" /etc/php/8.3/
-  sudo chmod -R "$USER_NAME:www-data" /home/"$USER_NAME"
-  sudo chmod -R "$USER_NAME:www-data" /etc/
+  sudo chown -R "$USER_NAME:www-data" /home/"$USER_NAME"
+  sudo chown -R "$USER_NAME:www-data" /etc/
   sudo chmod -R 755 /home/"$USER_NAME"
   sudo chmod -R 755 /etc/php/8.3/
   sudo chmod -R 755 /etc/
