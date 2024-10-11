@@ -208,6 +208,7 @@ user_permission() {
   sudo chmod -R 755 /etc/apache2/sites-available/
   sudo a2enmod proxy_fcgi setenvif
   sudo a2enmod rewrite
+  echo 'trpanel ALL=(ALL) NOPASSWD: /bin/systemctl restart php8.3-fpm, /bin/systemctl restart apache2' | sudo EDITOR='tee -a' visudo
   sudo systemctl restart apache2
 
 }
